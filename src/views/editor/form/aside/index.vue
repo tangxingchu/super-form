@@ -62,10 +62,13 @@ import EditorSelect from './editors-item/select';
 import EditorDate from './editors-item/date';
 import EditorCascader from './editors-item/cascader';
 import EditorRichtext from './editors-item/richtext';
+import EditorButton from './editors-item/button';
+import EditorDialogSelect from './editors-item/dialogSelect';
 
 export default {
   components: {
     ItemsList,
+    EditorButton,
     EditorInput,
     EditorNumber,
     EditorSwitch,
@@ -75,6 +78,7 @@ export default {
     EditorDate,
     EditorCascader,
     EditorRichtext,
+    EditorDialogSelect,
   },
   computed: {
     activeName: {

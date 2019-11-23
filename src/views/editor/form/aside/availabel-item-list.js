@@ -102,6 +102,20 @@ export default {
     "type": "richtext",
     "label": "内容",
     "value": '',
+  },
+  "button": {
+    "type": "button",
+    "label": "",
+    "value": '按钮',
+  },
+  "dialogSelect": {
+    "type": 'dialogSelect',
+    "label": '弹窗选择',
+    "value": '',
+    "disabled": false,
+    "multiple": false,
+    "placeholder": '请选择',
+    "rules": [],
   }
   // {
   //   "type": 'rate',

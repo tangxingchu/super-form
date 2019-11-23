@@ -27,6 +27,17 @@
         >文本域</el-button>
       </el-button-group>
     </el-popover>
+    <!-- 按钮 -->
+    <el-tag class="item" @click.native="addItem('button')">
+      <icon-svg icon="input"></icon-svg>
+      <span>按钮</span>
+    </el-tag>
+    <!-- 弹窗选择 -->
+    <el-tag class="item" @click.native="dialogSelect()">
+      <icon-svg icon="input"></icon-svg>
+      <span>弹窗选择</span>
+    </el-tag>
+    <!-- 文本 -->
     <el-tag
       v-popover:popinput
       class="item"
@@ -323,6 +334,29 @@ export default {
         ];
       }
       this.addItem('select', OPT);
+    },
+    // 弹窗选择
+    dialogSelect() {
+      // const { mode, source } = this.preConfigDataSelect;
+      const OPT = {
+      };
+      OPT.options = [
+        {
+          value: 'yaogao',
+          label: '蒸羊羔',
+          disabled: false,
+        },
+        {
+          value: 'niu',
+          label: '牛',
+          disabled: false,
+        },
+      ];
+      // OPT.optionsUrl = '/api/some/options';
+      // if (source === 'ajax') {
+      // } else {
+      // }
+      this.addItem('dialogSelect', OPT);
     },
   },
 };
