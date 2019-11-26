@@ -79,7 +79,28 @@
       :placeholder="item.placeholder"
       :value="item.value"
     )
-
+    //- 按钮
+    el-button(
+      v-else-if="item.type==='button'"
+      :disabled="item.disabled") {{item.value}}
+    //- 弹窗选择
+    div(
+      v-else-if="item.type==='dialogSelect'")
+      el-input(
+      :disabled="item.disabled"
+      :type="'text'"
+      :placeholder="item.placeholder"
+      :autosize="item.autosize"
+      :value="item.value")
+      el-button(
+      :disabled="item.disabled"
+      @click="dialogFormVisible==true") ...
+      el-dialog(
+        title="收货地址"
+        :visible.sync="dialogFormVisible")
+        div(
+          v-for="i of item.options"
+        ) {{i.label}}
     span(v-else) 未知控件类型
 
 </template>
@@ -100,6 +121,7 @@ export default {
           label: '动态获取',
         },
       ],
+      dialogFormVisible: true,
     };
   },
 };
