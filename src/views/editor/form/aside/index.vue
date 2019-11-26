@@ -27,8 +27,8 @@
 <template lang="pug">
   el-aside.bowen-aside
     el-tabs(v-model="activeName")
-
-      el-tab-pane(label="添加组件" name="items-list")
+      
+      //el-tab-pane(label="添加组件" name="items-list")
         items-list(@add="addItem")
 
       el-tab-pane(label="组件配置" name="item-config")

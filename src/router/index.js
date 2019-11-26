@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Preview from '@/views/preview/preview';
 import Editor from '@/views/editor';
+import Syscategory from '@/views/syscategory';
 import EditorFormAside from '@/views/editor/form/aside';
 import EditorFormMain from '@/views/editor/form/main';
 import EditorTableAside from '@/views/editor/table/aside';
@@ -13,8 +14,8 @@ export default new Router({
   // mode: 'history',
   routes: [
     {
-      path: '/editor',
-      redirect: '/editor/form',
+      path: '/design',
+      redirect: '/design/form',
       component: Editor,
       children: [
         {
@@ -39,7 +40,11 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/editor',
+      redirect: '/syscategory',
+    },
+    {
+      path: '/syscategory',
+      component: Syscategory,
     },
   ],
 });

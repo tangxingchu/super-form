@@ -10,7 +10,7 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   module: {
     rules: [
-      {
+      /*{
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
@@ -18,9 +18,9 @@ module.exports = merge(baseConfig, {
         options: {
           // emitWarning: true,
           cache: true,
-          formatter: require('eslint-friendly-formatter'),
+          //formatter: require('eslint-friendly-formatter'),
         },
-      },
+      },*/
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader', 'postcss-loader'],

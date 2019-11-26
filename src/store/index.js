@@ -7,7 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     itemKey: '', // 当前选中的item
-    asideActiveName: 'items-list', // 侧边栏标签当前活动位置
+    asideActiveName: 'item-config', // 侧边栏标签当前活动位置
   },
   mutations: {
     SELECT_ITEM(state, newKey) {
