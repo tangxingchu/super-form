@@ -53,6 +53,12 @@
         }, {
           label: '富文本',
           type: 'richtext',
+        }, {
+          label: '按钮',
+          type: 'button',
+        }, {
+          label: '弹窗',
+          type: 'dialogSelect',
         }],
         defaultProps: {
           children: 'children',
@@ -65,7 +71,6 @@
     methods: {
       handleNodeClick(data) {
         console.log(data.label, this.fieldId);
-        debugger;
         this.$emit('sendFormItem', data, this.fieldId);
       }
     }

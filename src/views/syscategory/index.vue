@@ -77,6 +77,7 @@
 		<FormDesign></FormDesign>
 	</div>
     <el-button style="margin-top: 12px;" @click="prev" v-if="active==1 || active == 2 || active == 3">上一步</el-button>
+    <el-button style="margin-top: 12px;" @click="prev" v-if="active == 3">保存表单</el-button>
     <el-button style="margin-top: 12px;" @click="next" v-if="active==0 || active == 1 || active == 2">下一步</el-button>
   </div>
 </template>
@@ -85,11 +86,14 @@
 import requestApi from '../../utils/request';
 import { apiHost } from '../../utils/config';
 import FormItem from './form-item';
-import FormDesign from '../editor/form//aside';
+import FormDesign from './design';
+import guid from '../../utils/guid';
+import AVAILABEL_FORM_ITEM_LIST from '../editor/form/aside/availabel-item-list';
 
 export default {
   components: {
 	  FormItem,
+	  FormDesign,
   },
   data() {
     return {
@@ -112,11 +116,38 @@ export default {
         });
         return;
       }
+      if (this.active == 2) {
+        let flag = false;
+        this.multipleSelection.forEach(item => {
+          if(!item.itemType) {
+            flag = true;
+          }
+        });
+        if(flag) {
+          this.$message({
+            message: '请配置字段对应的表单项',
+            type: 'warning',
+          });
+          return;
+        }
+      }
       if (this.active++ > 3) {
         this.active = 0;
       }
       if (this.active == 1) {
         this.selectFieldByList();
+      }
+      if (this.active == 3) {
+        this.multipleSelection.forEach(item => {
+          const key = guid();
+          const newItem = {
+            ...JSON.parse(JSON.stringify(AVAILABEL_FORM_ITEM_LIST[item.itemType])),
+            key,
+            //...option,
+          };
+          
+          this.$store.state.form.formItemList.push(newItem);
+        });
       }
     },
     prev() {
@@ -197,6 +228,16 @@ export default {
     this.getSysCategoryList().then(() => {});
   },
   created() {},
+  computed: {
+    formConfig: {
+      get() {
+        return this.$store.state.form;
+      },
+      set(newV) {
+        this.$store.commit('UPDATE_FORM', newV);
+      },
+    },
+  }
 };
 
 
