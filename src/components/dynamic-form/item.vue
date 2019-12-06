@@ -6,6 +6,7 @@
 </style>
 
 <template>
+  <el-col :span="item.span">
   <el-form-item
     :rules="Rules"
     :label="item.label"
@@ -174,6 +175,7 @@
     <span v-else>未知控件类型</span>
 
   </el-form-item>
+  </el-col>
 </template>
 
 <script>
@@ -253,7 +255,11 @@ export default {
     //字典
     if (dictKey) {
       requestDict(dictKey).then(res => {
-        this.ajaxOptions = res.data;
+        let dictList = [];
+        res.data.forEach(item => {
+            dictList.push({value: item.dictKey, label: item.dictValue});
+        })
+        this.ajaxOptions = dictList;
       }) 
       .catch(err => {
         this.$message.error(err.message);

@@ -4,18 +4,18 @@
     v-bind="formConfig"
     class="dynamic-form"
   >
-
-    <dynamic-form-item
-      v-for="item in formConfig.formItemList"
-      v-if="value[item.key]!==undefined"
-      :key="item.key"
-      :item="item"
-      v-bind="item"
-      :value="value[item.key]"
-      :style="{'min-width':columnMinWidth}"
-      @input="handleInput($event, item.key)"
-    ></dynamic-form-item>
-
+    <el-row>
+      <dynamic-form-item
+        v-for="item in formConfig.formItemList"
+        v-if="value[item.key]!==undefined"
+        :key="item.key"
+        :item="item"
+        v-bind="item"
+        :value="value[item.key]"
+        :style="{'min-width':columnMinWidth}"
+        @input="handleInput($event, item.key)"
+      ></dynamic-form-item>
+    </el-row>
     <slot></slot>
 
   </el-form>
