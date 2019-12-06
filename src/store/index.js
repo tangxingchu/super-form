@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import form from './modules/form'; // 表单
+import row from './modules/row'; // 布局row
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ const store = new Vuex.Store({
   modules: {
     // todo 表格table
     form,
+    row,
   },
 });
 

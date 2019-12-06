@@ -13,6 +13,8 @@
         el-switch(v-model="formItem.disabled")
       el-form-item(label="只读")
         el-switch(v-model="formItem.readonly")
+      el-form-item(label="栅格列数")
+        el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 
     //- wtf?
     //- editor-rules(:item-rules.sync="formItem.rules" :item-type="formItem.type")

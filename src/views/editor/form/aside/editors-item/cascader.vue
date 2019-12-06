@@ -15,6 +15,8 @@
         el-checkbox(v-model="formItem.disabled")
       //- el-form-item(label="可搜索") todo
       //-   el-checkbox(v-model="formItem.filterable")
+      el-form-item(label="栅格列数")
+        el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 
     editor-rules(:item-rules="formItem.rules" @update:item-rules="n => formItem.rules = n" :item-type="formItem.type" types="required")
 

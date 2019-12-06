@@ -13,6 +13,12 @@
     },
     {
       "type": "input",
+      "label": "每行几列",
+      "key": "inline",
+      "value": false
+    },
+    {
+      "type": "input",
       "subtype": "text",
       "label": "标签宽度",
       "key": "labelWidth",

@@ -17,6 +17,7 @@ export default {
       { "pattern": '^[\\w\\u4e00-\\u9fa5-_]+$', "message": '正则验证失败:^[\\w\\u4e00-\\u9fa5-_]+$', 'trigger': 'blur' },
       { "sql": "SELECT {key} FROM balabala", "message": 'SQL验证失败', 'trigger': 'blur' }
     ],
+    "span": 24,
   },
   "number": {
     "type": 'number', // number 类型目前采用的是"输入前"限制, 使用rules验证会出现bug
@@ -27,12 +28,14 @@ export default {
     "max": 99998,
     "prepend": '￥', // String, 前缀
     "append": '元', // String, 后缀（单位）
+    "span": 24,
   },
   "switch": {
     "type": 'switch',
     "label": '开关',
     "appearance": "switch", // 外观, 'switch'开关(默认) / checkbox勾选
-    "value": true
+    "value": true,
+    "span": 24,
   },
   "radio": {
     "type": 'radio',

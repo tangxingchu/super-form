@@ -66,9 +66,7 @@
 		</el-table-column>
 		<el-table-column label="选择表单项" show-overflow-tooltip>
 			<template slot-scope="scope">
-				<div class="bowen-aside">
-				　　<FormItem @sendFormItem="getFormItem" :fieldId=scope.row.id></FormItem>
-				</div>
+				　<FormItem @sendFormItem="getFormItem" :fieldId=scope.row.id></FormItem>
 			</template>
 		</el-table-column>
       </el-table>
@@ -142,8 +140,9 @@ export default {
           const key = guid();
           const newItem = {
             ...JSON.parse(JSON.stringify(AVAILABEL_FORM_ITEM_LIST[item.itemType])),
-            key,
-            //...option,
+            key: item.fieldName,
+            ...item.formItem,
+            label: item.fieldCaption,
           };
           
           this.$store.state.form.formItemList.push(newItem);
@@ -217,7 +216,8 @@ export default {
 		let multipleSelection = this.multipleSelection.map(item => {
 			if(item.id === fieldId) {
 				item.itemLabel = data.label;
-				item.itemType = data.type;
+        item.itemType = data.type;
+        item.formItem = data;
 			}
 			return item;
 		})

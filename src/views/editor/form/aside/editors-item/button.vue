@@ -11,6 +11,8 @@
         el-input(v-model="formItem.value" :type="formItem.subtype")
       el-form-item(label="禁用")
         el-switch(v-model="formItem.disabled")
+      el-form-item(label="栅格列数")
+        el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 
     //- wtf?
     //- editor-rules(:item-rules.sync="formItem.rules" :item-type="formItem.type")

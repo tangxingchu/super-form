@@ -21,6 +21,9 @@
           v-model="formItem.value")
       el-form-item(label="禁用")
         el-checkbox(v-model="formItem.disabled")
+      el-form-item(label="栅格列数")
+        el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
+
     editor-rules(:item-rules="formItem.rules" @update:item-rules="n => formItem.rules = n" :item-type="formItem.type" types="required")
 
     pre {{formItem}}

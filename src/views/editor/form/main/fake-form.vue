@@ -6,30 +6,23 @@
     :size="formConfig.size"
     class="dynamic-form fake-form"
   >
-
-    <draggable v-model="formConfig.formItemList">
-
-      <transition-group name="list-complete">
-
-        <div
-          v-for="(item,i) in formConfig.formItemList"
-          :key="item.key"
-          :class="{'selected': $store.state.itemKey===item.key}"
-          class="draggable list-complete-item"
-          @click="select(item.key)"
-        >
-
-          <fake-form-item :item="item"></fake-form-item>
-          <i
-            class="el-icon-delete"
-            @click.stop="deleteItem(i)"
-          ></i>
-
-        </div>
-      </transition-group>
-
-    </draggable>
-
+    <el-row>
+      <draggable v-model="formConfig.formItemList">
+        <transition-group name="list-complete">
+          <div v-for="(item,i) in formConfig.formItemList" :key="item.key">
+            <el-col
+              :span="item.span"
+              :class="{'selected': $store.state.itemKey===item.key}"
+              class="draggable list-complete-item"
+              @click.native="select(item.key)"
+            >
+              <fake-form-item :item="item"></fake-form-item>
+              <i class="el-icon-delete" @click.stop="deleteItem(i)"></i>
+            </el-col>
+          </div>
+        </transition-group>
+      </draggable>
+    </el-row>
   </el-form>
 </template>
 
@@ -47,6 +40,7 @@ export default {
   },
   methods: {
     select(key) {
+      console.log(key);
       this.$store.commit('SELECT_ITEM', key);
     },
     deleteItem(i) {

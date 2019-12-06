@@ -14,6 +14,8 @@
         el-switch(v-model="formItem.border")
       el-form-item(label="按钮形状")
         el-switch(v-model="formItem.button")
+      el-form-item(label="栅格列数")
+        el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 
     editor-options(v-if="formItem.optionsUrl===undefined" :itemOptions="formItem.options")
 
