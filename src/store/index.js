@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   state: {
     itemKey: '', // 当前选中的item
     asideActiveName: 'items-list', // 侧边栏标签当前活动位置
+    active: 0,
   },
   mutations: {
     SELECT_ITEM(state, newKey) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     },
     TOGGLE_ASIDE_ACTIVE(state, newName) {
       state.asideActiveName = newName;
+    },
+    UPDATE_ACTIVE(state, payload) {
+      Object.assign(state, payload);
     },
   },
   modules: {

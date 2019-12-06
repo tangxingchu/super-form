@@ -178,6 +178,7 @@
 
 <script>
 import request from '@/utils/request';
+import requestDict from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
 
 export default {
@@ -233,7 +234,7 @@ export default {
     },
   },
   created() {
-    const { optionsUrl, key, type } = this.item;
+    const { optionsUrl, key, type, dictKey } = this.item;
     if (optionsUrl) {
       const url = type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
       console.log(
@@ -248,6 +249,15 @@ export default {
         .catch(err => {
           this.$message.error(err.message);
         });
+    }
+    //字典
+    if (dictKey) {
+      requestDict(dictKey).then(res => {
+        this.ajaxOptions = res.data;
+      }) 
+      .catch(err => {
+        this.$message.error(err.message);
+      });
     }
   },
   methods: {

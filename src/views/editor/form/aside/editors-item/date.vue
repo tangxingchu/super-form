@@ -7,7 +7,7 @@
         el-input(:value="formItem.key" readonly)
       el-form-item(label="占位文本")
         el-input(v-model="formItem.placeholder")
-      el-form-item(label="格式")
+      //-el-form-item(label="格式")
         el-input(v-model="formItem.valueFormat")
       el-form-item(label="默认值")
         el-date-picker(
@@ -21,6 +21,13 @@
           v-model="formItem.value")
       el-form-item(label="禁用")
         el-checkbox(v-model="formItem.disabled")
+      el-form-item(label="日期格式")
+        el-radio-group(v-model="formItem.valueFormat")
+          el-radio-button(label="yyyy" value="yyyy")
+          el-radio-button(label="yyyy-MM" value="yyyy-MM")
+          el-radio-button(label="yyyy-MM-dd" value="yyyy-MM-dd")
+          el-radio-button(label="yyyy-MM-dd HH:mm:ss" value="yyyy-MM-dd HH:mm:ss")
+        </el-radio-group>
       el-form-item(label="栅格列数")
         el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 

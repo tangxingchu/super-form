@@ -76,6 +76,7 @@
 	</div>
     <el-button style="margin-top: 12px;" @click="prev" v-if="active==1 || active == 2 || active == 3">上一步</el-button>
     <el-button style="margin-top: 12px;" @click="prev" v-if="active == 3">保存表单</el-button>
+    <el-button style="margin-top: 12px;" @click="preview" v-if="active == 3">预览表单</el-button>
     <el-button style="margin-top: 12px;" @click="next" v-if="active==0 || active == 1 || active == 2">下一步</el-button>
   </div>
 </template>
@@ -95,7 +96,7 @@ export default {
   },
   data() {
     return {
-      active: 0,
+      
       tableData: [],
 	  fieldTableData: [],
 	  multipleSelection: [],
@@ -129,8 +130,9 @@ export default {
           return;
         }
       }
-      if (this.active++ > 3) {
-        this.active = 0;
+      if (this.$store.state.active++ > 3) {
+        // this.active = 0;
+        this.$store.state.active = 0;
       }
       if (this.active == 1) {
         this.selectFieldByList();
@@ -150,9 +152,11 @@ export default {
       }
     },
     prev() {
-      if (this.active-- < 0) {
-        this.active = 0;
+      if (this.$store.state.active-- < 0) {
+        // this.active = 0;
+        this.$store.state.active = 0;
       }
+
     },
     setCurrent(row) {
       this.$refs.singleTable.setCurrentRow(row);
@@ -211,18 +215,23 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
-	},
-	getFormItem(data, fieldId) {
-		let multipleSelection = this.multipleSelection.map(item => {
-			if(item.id === fieldId) {
-				item.itemLabel = data.label;
-        item.itemType = data.type;
-        item.formItem = data;
-			}
-			return item;
-		})
-		this.multipleSelection = multipleSelection;
-	}
+    },
+    getFormItem(data, fieldId) {
+      let multipleSelection = this.multipleSelection.map(item => {
+        if(item.id === fieldId) {
+          item.itemLabel = data.label;
+          item.itemType = data.type;
+          item.formItem = data;
+        }
+        return item;
+      })
+      this.multipleSelection = multipleSelection;
+    },
+    preview() {
+      this.$router.push({
+        path: "/preview"
+      });
+    }
   },
   mounted() {
     this.getSysCategoryList().then(() => {});
@@ -237,6 +246,14 @@ export default {
         this.$store.commit('UPDATE_FORM', newV);
       },
     },
+    active: {
+      get() {
+        return this.$store.state.active;
+      },
+      set(newV) {
+        this.$store.commit('UPDATE_ACTIVE', newV);
+      },
+    }
   }
 };
 

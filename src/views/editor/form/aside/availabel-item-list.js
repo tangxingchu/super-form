@@ -48,16 +48,19 @@ export default {
     //     "disabled": false
     //   }
     // ],
+    "dictKey": "",//字典key
     "button": false, // 按钮形状, inline模式下推荐开启, 多选框checkbox同样有效
     "border": true, // (非按钮形式)显示边框, inline模式下推荐开启, 多选框checkbox同样有效
     "rules": [
       { "required": true, "message": '请选择一项', "trigger": 'blur' },
     ],
+    "span": 24,
   },
   "checkbox": {
     "type": 'checkbox',
     "label": '多选',
     "value": [],
+    "dictKey": "",//字典key
     "border": true,
     "button": false,
     // "max": 2, // 限制输入
@@ -66,16 +69,19 @@ export default {
     "rules": [
       { "type": "array", "required": true, "min": 1, "max": 2, "message": '请勾选1~2项' },
     ],
+    "span": 24,
   },
   "select": {
     "type": 'select',
     "label": '下拉',
     "value": '',
+    "dictKey": "",//字典key
     "disabled": false,
     "multiple": false,
     // "options": [],
     "placeholder": '请选择',
     "rules": [],
+    "span": 24,
   },
   "date": {
     "type": 'date',
@@ -88,7 +94,8 @@ export default {
     "rules": [
       { required: "true", message: "此项为必填项" }
     ],
-    "placeholder": '请选择'
+    "placeholder": '请选择',
+    "span": 24,
   },
   "cascader": {
     "type": 'cascader',
@@ -100,16 +107,19 @@ export default {
     "rules": [
       { "required": true, "type": 'array', "min": 1, "message": '请选择' },
     ],
+    "span": 24,
   },
   "richtext": {
     "type": "richtext",
     "label": "内容",
     "value": '',
+    "span": 24,
   },
   "button": {
     "type": "button",
     "label": "",
     "value": '按钮',
+    "span": 24,
   },
   "dialogSelect": {
     "type": 'dialogSelect',
@@ -119,6 +129,7 @@ export default {
     "multiple": false,
     "placeholder": '请选择',
     "rules": [],
+    "span": 24,
   }
   // {
   //   "type": 'rate',
