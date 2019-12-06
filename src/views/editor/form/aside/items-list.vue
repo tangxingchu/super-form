@@ -61,7 +61,7 @@
       <icon-svg icon="switch" ></icon-svg>
       <span>开关</span>
     </el-tag>
-    <!-- 单选 -->
+    <!-- 单选 
     <el-popover
       ref="popradio"
       v-model="popRadio"
@@ -82,14 +82,16 @@
         >自定义</el-button>
       </el-button-group>
     </el-popover>
+    -->
     <el-tag
       v-popover:popradio
       class="item"
+      @click.native="addItem('radio')"
     >
       <icon-svg icon="radio" ></icon-svg>
       <span>单选</span>
     </el-tag>
-    <!-- 多选 -->
+    <!-- 多选
     <el-popover
       ref="popcheckbox"
       v-model="popCheckbox"
@@ -110,14 +112,16 @@
         >自定义</el-button>
       </el-button-group>
     </el-popover>
+     -->
     <el-tag
       v-popover:popcheckbox
       class="item"
+      @click.native="addItem('checkbox')"
     >
       <icon-svg icon="checkbox" ></icon-svg>
       <span>多选</span>
     </el-tag>
-    <!-- 下拉 -->
+    <!-- 下拉 
     <el-popover
       ref="popselect"
       v-model="popSelect"
@@ -148,9 +152,11 @@
         >选好了</el-button>
       </div>
     </el-popover>
+    -->
     <el-tag
       v-popover:popselect
       class="item"
+      @click.native="addItem('select')"
     >
       <icon-svg icon="select" ></icon-svg>
       <span>下拉</span>
