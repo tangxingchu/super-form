@@ -277,24 +277,24 @@ export default {
       // console.log(this.item);
       // if (optionsUrl) {
         for(let item of this.formList){
-          console.log(`字段：${item}`);
-          const url = item.type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
-          if(item.type === 'cascader' || item.type === 'select'){
+          // console.log(`字段：${item}`);
+          // const url = item.type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
+          // if(item.type === 'cascader' || item.type === 'select'){
         
-            console.log(
-              `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
-            );
-            request(`${url}?key=${item.key}`, 'GET')
-              .then(res => {
-                console.log(res);
-                // this.item.options = res
-                // this.$set(this.item, 'options', res)
-                this.ajaxOptions = res;
-                console.log(this.ajaxOptions);
-              })
-              .catch(err => {
-                this.$message.error(err.message);
-              });
+          //   console.log(
+          //     `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
+          //   );
+          //   request(`${url}?key=${item.key}`, 'GET')
+          //     .then(res => {
+          //       console.log(res);
+          //       // this.item.options = res
+          //       // this.$set(this.item, 'options', res)
+          //       this.ajaxOptions = res;
+          //       console.log(this.ajaxOptions);
+          //     })
+          //     .catch(err => {
+          //       this.$message.error(err.message);
+          //     });
       // }
       //字典
       console.log(`dictKey:${JSON.stringify(item)}`);
@@ -315,7 +315,7 @@ export default {
           }
         }
         this.$set(this.item,"options",this.ajaxOptions);
-      }
+      // }
     }
   },
 };
