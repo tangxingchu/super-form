@@ -11,11 +11,12 @@
     //- 数字
     el-input(
       v-else-if="item.type==='number'"
+      :type="text"
       :disabled="true"
       :value="item.value"
     )
-      template(v-if="item.append" slot="append") {{item.append}}
-      template(v-if="item.prepend" slot="prepend") {{item.prepend}}
+      <!-- template(v-if="item.append" slot="append") {{item.append}}
+      template(v-if="item.prepend" slot="prepend") {{item.prepend}} -->
     //- 开关
     el-checkbox(
       v-else-if="item.type==='switch' && item.appearance==='checkbox'"
@@ -87,20 +88,41 @@
     div(
       v-else-if="item.type==='dialogSelect'")
       el-input(
-      :disabled="item.disabled"
+      :disabled="true"
       :type="'text'"
       :placeholder="item.placeholder"
       :autosize="item.autosize"
       :value="item.value")
       el-button(
-      :disabled="item.disabled"
+      :disabled="true"
       @click="dialogFormVisible==true") ...
       el-dialog(
-        title="收货地址"
+        title="请选择"
         :visible.sync="dialogFormVisible")
         div(
           v-for="i of item.options"
         ) {{i.label}}
+
+    //- 弹窗选择
+    div(
+      v-else-if="item.type==='dialogSelect2'")
+      el-input(
+      :disabled="true"
+      :type="'text'"
+      :placeholder="item.placeholder"
+      :autosize="item.autosize"
+      :value="item.value")
+      el-button(
+      :disabled="true"
+      @click="dialogFormVisible==true") ...
+      el-dialog(
+        title="全宗"
+        :visible.sync="dialogFormVisible")
+        div(
+        v-for="i of item.options"
+        ) 
+          span {{i.fondsNo}}
+          span {{i.fondsName}}
     span(v-else) 未知控件类型
 
 </template>
@@ -121,7 +143,7 @@ export default {
           label: '动态获取',
         },
       ],
-      dialogFormVisible: true,
+      dialogFormVisible: false,
     };
   },
 };

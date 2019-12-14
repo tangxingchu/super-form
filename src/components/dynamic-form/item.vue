@@ -26,11 +26,12 @@
       :disabled="item.disabled">{{ item.value }}
     </el-button>
 
-    <input-number
+    <el-input
       v-else-if="item.type==='number'"
       v-bind="$attrs"
       v-on="$listeners"
-    ></input-number>
+      type="number"
+    ></el-input>
 
     <el-checkbox
       v-else-if="item.type==='switch' && item.appearance==='checkbox'"
@@ -172,6 +173,18 @@
       </div>
       </el-dialog>
     </div>
+
+    <div v-else-if="item.type==='dialogSelect2'" :type="item.subtype" v-bind="$attrs" v-on="$listeners">
+      <el-input :disabled="item.disabled" :type="'input'" :placeholder="item.placeholder" :autosize="item.autosize"
+        :value="item.value"></el-input>
+      <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
+      <el-dialog :visible.sync="dialogFormVisible" :title="item.label">
+        <div v-for="(i,index) of fondsList" :key="index" @click="select(i.fondsName,i.fondsNo)">
+          <span>{{ i.fondsNo }}</span>
+          <span>{{ i.fondsName }}</span>
+        </div>
+      </el-dialog>
+    </div>
     <span v-else>未知控件类型</span>
 
   </el-form-item>
@@ -197,6 +210,7 @@ export default {
     return {
       ajaxOptions: [],
       dialogFormVisible: false,
+      fondsList:[],
     };
   },
   computed: {
@@ -236,41 +250,53 @@ export default {
     },
   },
   created() {
-    const { optionsUrl, key, type, dictKey } = this.item;
-    if (optionsUrl) {
-      const url = type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
-      console.log(
-        `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
-      );
-      request(`${url}?key=${key}`, 'GET')
-        .then(res => {
-          // this.item.options = res
-          // this.$set(this.item, 'options', res)
-          this.ajaxOptions = res;
-        })
-        .catch(err => {
-          this.$message.error(err.message);
-        });
-    }
-    //字典
-    if (dictKey) {
-      requestDict(dictKey).then(res => {
-        let dictList = [];
-        res.data.forEach(item => {
-            dictList.push({value: item.dictKey, label: item.dictValue});
-        })
-        this.ajaxOptions = dictList;
-      }) 
-      .catch(err => {
-        this.$message.error(err.message);
-      });
-    }
+    
+    //全宗
+    requestDict.listFonds().then(res=>{
+      this.fondsList = res.data;
+      console.log(res.data);
+    })
   },
   methods: {
-    select(iVal) {
+    select(iVal, fondsNo) {
       this.$set(this.item, 'value', iVal);
+      this.$set(this.item, 'fondsNo', fondsNo);
       this.dialogFormVisible = false;
+      this.getDropDown();
     },
+    getDropDown(){
+      const { optionsUrl, key, type, dictKey, fondsNo } = this.item;
+      console.log(dictKey);
+      if (optionsUrl) {
+        const url = type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
+        console.log(
+          `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
+        );
+        request(`${url}?key=${key}`, 'GET')
+          .then(res => {
+            // this.item.options = res
+            // this.$set(this.item, 'options', res)
+            this.ajaxOptions = res;
+          })
+          .catch(err => {
+            this.$message.error(err.message);
+          });
+      }
+      //字典
+      if (dictKey) {
+        requestDict.getSysDictList(dictKey,fondsNo).then(res => {
+          console.log(res);
+          let dictList = [];
+          res.data.forEach(item => {
+            dictList.push({ value: item.dictKey, label: item.dictValue });
+          })
+          this.ajaxOptions = dictList;
+        })
+          .catch(err => {
+            this.$message.error(err.message);
+          });
+      }
+    }
   },
 };
 </script>

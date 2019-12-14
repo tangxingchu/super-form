@@ -70,6 +70,9 @@
           }, {
             label: '弹窗',
             type: 'dialogSelect',
+          }, {
+            label: '全宗',
+            type: 'dialogSelect2',
           }],
         }],
         defaultProps: {

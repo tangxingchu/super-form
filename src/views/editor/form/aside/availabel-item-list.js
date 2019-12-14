@@ -2,7 +2,7 @@
 export default {
   "input": {
     "type": 'input', // 必要, String
-    // "subtype": 'text',
+    "subtype": 'text',
     "label": '文本', // 必要, String
     "disabled": false, //禁用, Boolean
     "readonly": false, //只读, Boolean
@@ -124,6 +124,16 @@ export default {
   "dialogSelect": {
     "type": 'dialogSelect',
     "label": '弹窗选择',
+    "value": '',
+    "disabled": false,
+    "multiple": false,
+    "placeholder": '请选择',
+    "rules": [],
+    "span": 24,
+  },
+  "dialogSelect2": {
+    "type": 'dialogSelect2',
+    "label": '全宗选择',
     "value": '',
     "disabled": false,
     "multiple": false,

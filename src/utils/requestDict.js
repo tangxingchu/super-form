@@ -1,7 +1,7 @@
 import requestApi from './request';
 import { apiHost } from './config';
 
-export default (dictKey) => {
+const getSysDictList = (dictKey) => {
     return requestApi(`${apiHost}/dossierWeb/sysDict/getSysDictList`, "POST", {data: {dictKey}});
 }
 
@@ -20,4 +20,5 @@ const listDictGroupName = () => {
 export {
     listFonds,
     listDictGroupName,
+    getSysDictList
 }
