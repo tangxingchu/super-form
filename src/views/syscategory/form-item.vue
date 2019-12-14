@@ -6,9 +6,9 @@
       :label="group.label">
       <el-option
         v-for="item in group.children"
-        :key="item.subType || item.type"
+        :key="item.subtype || item.type"
         :label="item.label"
-        :value="item.subType || item.type">
+        :value="item.subtype || item.type">
       </el-option>
     </el-option-group>
   </el-select>
@@ -27,15 +27,15 @@
           children: [{
             label: '普通文本',
             type: 'input',
-            subType: 'text',
+            subtype: 'text',
           },{
             label: '密码',
             type: 'input',
-            subType: 'password',
+            subtype: 'password',
           },{
             label: '文本域',
             type: 'input',
-            subType: 'textarea',
+            subtype: 'textarea',
           }]
         }, {
           type: 'other',
@@ -76,7 +76,7 @@
           children: 'children',
           label: 'label',
           type: 'input',
-          subType: 'subType',
+          subtype: 'subtype',
         },
         value: '',
       };
@@ -85,7 +85,7 @@
       getItem(type, data) {
         for(let i = 0; i < data.length; i++) {
           let element = data[i];
-          if(element.type === type || element.subType === type) {
+          if(element.type === type || element.subtype === type) {
              this.selElement = element;
              break;
            } else if(element.children) {
@@ -95,6 +95,7 @@
       },
       selectChanged(value) {
         this.getItem(this.value, this.data);
+        console.log(this.selElement);
         this.$emit('sendFormItem', this.selElement, this.fieldId);
       }
     }

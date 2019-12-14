@@ -10,8 +10,12 @@
           el-option(v-for="o in formItem.options" :key="o.value" :label="o.label" :value="o.value")
       //- el-form-item(v-else label="数据URL")
         el-input(v-model="formItem.optionsUrl")
-      el-form-item(label="字典dictKey")
-        el-input(v-model="formItem.dictKey")
+      el-form-item(label="配置字典")
+        el-select(v-model="formItem.dictKey" placeholder="请选择")
+          el-option(v-for="item in dictGroupData"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value")
       el-form-item(label="是否多选")
         el-checkbox(v-model="formItem.multiple")
       el-form-item(label="禁用")
@@ -31,6 +35,7 @@
 <script>
 import EditorRules from '../editor-rules';
 import EditorOptions from '../editor-options';
+import { listDictGroupName } from '../../../../../utils/requestDict';
 
 export default {
   components: { EditorRules, EditorOptions },
@@ -40,5 +45,22 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      dictGroupData:[],
+    }
+  },
+  mounted: function(){
+    listDictGroupName().then(res => {
+        let dictGroupData = [];
+        res.data.forEach(item => {
+            dictGroupData.push({value: item.dictKey, label: item.dictValue});
+        })
+        this.dictGroupData = dictGroupData;
+      }) 
+      .catch(err => {
+        this.$message.error(err.message);
+      });
+  }
 };
 </script>

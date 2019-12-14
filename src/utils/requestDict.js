@@ -13,6 +13,11 @@ const listFonds = (params) => {
     return requestApi(`${apiHost}/dossierWeb/sysFonds/selectByList`, "POST", {data: {...params}});
 }
 
+const listDictGroupName = () => {
+    return requestApi(`${apiHost}/dossierWeb/sysDict/queryDictGroupName`, "POST", {data: {}});
+}
+
 export {
     listFonds,
+    listDictGroupName,
 }
