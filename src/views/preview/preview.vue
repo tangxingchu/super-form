@@ -22,6 +22,10 @@ export default {
   computed: {
     ...mapState(['form']),
   },
+  mounted(){
+    
+    console.log(this.form.formItemList);
+  },
   methods: {
     validate() {
       this.loading = true;

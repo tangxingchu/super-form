@@ -102,7 +102,7 @@
       v-on="$listeners"
     >
       <el-option
-        v-for="o in item.options||ajaxOptions"
+        v-for="o in item.options || ajaxOptions"
         :key="o.value"
         :label="o.label"
         :value="o.value"
@@ -193,8 +193,9 @@
 
 <script>
 import request from '@/utils/request';
-import requestDict from '@/utils/requestDict';
+import {getSysDictList, listFonds} from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -211,9 +212,11 @@ export default {
       ajaxOptions: [],
       dialogFormVisible: false,
       fondsList:[],
+      formList:[]
     };
   },
-  computed: {
+  computed: {    
+    // ...mapState(['form']),
     Rules() {
       const { item: { rules } } = this;
       if (rules === undefined) return undefined;
@@ -252,49 +255,66 @@ export default {
   created() {
     
     //全宗
-    requestDict.listFonds().then(res=>{
-      this.fondsList = res.data;
-      console.log(res.data);
-    })
+    if(this.item.type =="dialogSelect2"){
+      listFonds().then(res=>{
+        this.fondsList = res.data;
+        console.log(res.data);
+      })
+    }
+
   },
   methods: {
     select(iVal, fondsNo) {
+      this.formList = this.$store.state.form.formItemList;
       this.$set(this.item, 'value', iVal);
       this.$set(this.item, 'fondsNo', fondsNo);
       this.dialogFormVisible = false;
-      this.getDropDown();
+      this.getDropDown(fondsNo);
+      
     },
-    getDropDown(){
-      const { optionsUrl, key, type, dictKey, fondsNo } = this.item;
-      console.log(dictKey);
-      if (optionsUrl) {
-        const url = type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
-        console.log(
-          `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
-        );
-        request(`${url}?key=${key}`, 'GET')
-          .then(res => {
-            // this.item.options = res
-            // this.$set(this.item, 'options', res)
-            this.ajaxOptions = res;
-          })
-          .catch(err => {
-            this.$message.error(err.message);
-          });
-      }
+    getDropDown(fondsNo){
+      // const { optionsUrl, key, type, dictKey } = this.item;
+      // console.log(this.item);
+      // if (optionsUrl) {
+        for(let item of this.formList){
+          console.log(`字段：${item}`);
+          const url = item.type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
+          if(item.type === 'cascader' || item.type === 'select'){
+        
+            console.log(
+              `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
+            );
+            request(`${url}?key=${item.key}`, 'GET')
+              .then(res => {
+                console.log(res);
+                // this.item.options = res
+                // this.$set(this.item, 'options', res)
+                this.ajaxOptions = res;
+                console.log(this.ajaxOptions);
+              })
+              .catch(err => {
+                this.$message.error(err.message);
+              });
+      // }
       //字典
-      if (dictKey) {
-        requestDict.getSysDictList(dictKey,fondsNo).then(res => {
-          console.log(res);
-          let dictList = [];
-          res.data.forEach(item => {
-            dictList.push({ value: item.dictKey, label: item.dictValue });
-          })
-          this.ajaxOptions = dictList;
-        })
-          .catch(err => {
-            this.$message.error(err.message);
-          });
+      console.log(`dictKey:${JSON.stringify(item)}`);
+          if (item.key) {
+            getSysDictList(item.key,fondsNo).then(res => {
+              console.log(res);
+              let dictList = [];
+              res.data.forEach(item => {
+                dictList.push({ value: item.dictKey, label: item.dictValue });
+              })
+              console.log(`结果：${JSON.stringify(dictList)}`);
+              // this.$state.
+              this.ajaxOptions = dictList;
+            })
+              .catch(err => {
+                this.$message.error(err.message);
+              });
+          }
+        }
+        this.$set(this.item,"options",this.ajaxOptions);
       }
     }
   },

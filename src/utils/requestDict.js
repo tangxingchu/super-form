@@ -1,8 +1,8 @@
 import requestApi from './request';
 import { apiHost } from './config';
 
-const getSysDictList = (dictKey) => {
-    return requestApi(`${apiHost}/dossierWeb/sysDict/getSysDictList`, "POST", {data: {dictKey}});
+const getSysDictList = (dictKey, fondsCode) => {
+    return requestApi(`${apiHost}/dossierWeb/sysDict/getSysDictList`, "POST", {data: {dictKey, fondsCode}});
 }
 
 /**
@@ -20,5 +20,5 @@ const listDictGroupName = () => {
 export {
     listFonds,
     listDictGroupName,
-    getSysDictList
+    getSysDictList,
 }
