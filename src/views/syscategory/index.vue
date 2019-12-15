@@ -14,7 +14,6 @@
         highlight-current-row
         @current-change="handleCurrentChange"
         style="width:100%;"
-        row-key="id"
       >
         <el-table-column type="index" width="50"></el-table-column>
         <el-table-column property="cateName" label="门类名称" width="200"></el-table-column>
@@ -24,8 +23,7 @@
     </div>
     <div v-show="active===1">
       <el-table
-        row-key="id"
-        v-loading="fieldLoading"
+	  	v-loading="fieldLoading"
         ref="multipleTable"
         :data="fieldTableData"
         tooltip-effect="dark"
@@ -39,10 +37,16 @@
         <el-table-column prop="inputMethod" label="录入方式" show-overflow-tooltip></el-table-column>
       </el-table>
     </div>
-    <div v-show="active===2">
-      <el-table row-key="id" :data="multipleSelection" tooltip-effect="dark" style="width: 100%;">
-        <el-table-column prop="fieldName" label="字段英文名" width="160"></el-table-column>
-        <el-table-column prop="fieldCaption" label="字段中文名" width="160"></el-table-column>
+	<div v-show="active===2">
+      <el-table
+        :data="multipleSelection"
+        tooltip-effect="dark"
+        style="width: 100%;"
+      >
+        <el-table-column prop="fieldName" label="字段英文名" width="160">
+        </el-table-column>
+        <el-table-column prop="fieldCaption" label="字段中文名" width="160">
+		</el-table-column>
         <el-table-column prop="fieldType" label="字段类型" show-overflow-tooltip></el-table-column>
         <el-table-column prop="inputMethod" label="录入方式" show-overflow-tooltip></el-table-column>
         <el-table-column prop="itemLabel" label="已选表单项" show-overflow-tooltip></el-table-column>

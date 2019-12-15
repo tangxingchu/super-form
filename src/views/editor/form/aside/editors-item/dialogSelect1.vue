@@ -3,10 +3,10 @@
     el-form(v-on="$listeners" v-bind="$attrs")
       el-form-item(label="标签名")
         el-input(v-model="formItem.label")
-      el-form-item(label="键名")
-        el-input(:value="formItem.key")
+      el-form-item(label="键名" )
+        el-input(:value="formItem.key?formItem.key:1" disabled)
       el-form-item(label="默认值" v-if="formItem.optionsUrl===undefined" )
-        el-select(v-model="formItem.value" clearable :multiple="formItem.multiple")
+        el-select(v-model="formItem.value" clearable :multiple="formItem.multiple" disabled)
           el-option(v-for="(o,index) in formItem.options" :key="index" :label="o.label" :value="o.value")
       el-form-item(v-else label="数据URL")
         el-input(v-model="formItem.optionsUrl")
@@ -15,7 +15,7 @@
       el-form-item(label="栅格列数")
         el-input-number(v-model="formItem.span" controls-position="right" :min="1" :max="24")
 
-    editor-options(v-if="formItem.optionsUrl===undefined" :itemOptions="formItem.options")
+    //- editor-options(v-if="formItem.optionsUrl===undefined" :itemOptions="formItem.options")
 
     //- wtf?
     //- editor-rules(:item-rules.sync="formItem.rules" :item-type="formItem.type")

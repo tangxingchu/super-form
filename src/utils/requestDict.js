@@ -29,9 +29,13 @@ const saveForm = (params) => {
     return requestApi(`${apiHost}/dossierWeb/sysCateForm/insertData`, "POST", {data: {...params}});
 }
 
+const queryDictGroupName = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/sysOrganization/getSysOrganizationList`, "POST", { data: { ...params} });
+}
 export {
     listFonds,
     listDictGroupName,
     getSysDictList,
     saveForm,
+    queryDictGroupName,
 }

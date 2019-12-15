@@ -64,6 +64,8 @@ import EditorCascader from './editors-item/cascader';
 import EditorRichtext from './editors-item/richtext';
 import EditorButton from './editors-item/button';
 import EditorDialogSelect from './editors-item/dialogSelect';
+import EditorDialogSelect2 from './editors-item/dialogSelect1';
+import EditorDialogSelect3 from './editors-item/dialogSelect2';
 
 export default {
   components: {
@@ -79,6 +81,8 @@ export default {
     EditorCascader,
     EditorRichtext,
     EditorDialogSelect,
+    EditorDialogSelect2,
+    EditorDialogSelect3,
   },
   computed: {
     activeName: {

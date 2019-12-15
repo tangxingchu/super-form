@@ -7,13 +7,13 @@
         el-input(:value="formItem.key" readonly)
       //- el-form-item(label="默认值" v-if="formItem.optionsUrl===undefined")
         el-select(v-model="formItem.value" clearable :multiple="formItem.multiple")
-          el-option(v-for="o in formItem.options" :key="o.value" :label="o.label" :value="o.value")
+          el-option(v-for="(o,index) in formItem.options" :key="index" :label="o.label" :value="o.value")
       //- el-form-item(v-else label="数据URL")
         el-input(v-model="formItem.optionsUrl")
       el-form-item(label="配置字典")
         el-select(v-model="formItem.dictKey" placeholder="请选择")
-          el-option(v-for="item in dictGroupData"
-            :key="item.value"
+          el-option(v-for="(item,index) in dictGroupData"
+            :key="index"
             :label="item.label"
             :value="item.value")
       el-form-item(label="是否多选")

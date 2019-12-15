@@ -14,7 +14,7 @@
     {
       "type": "input",
       "label": "每行几列",
-      "key": "inline",
+      "key": "col",
       "value": false
     },
     {

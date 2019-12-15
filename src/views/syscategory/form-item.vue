@@ -73,6 +73,9 @@
           }, {
             label: '全宗弹框',
             type: 'dialogSelect2',
+          }, {
+            label: '机构',
+            type: 'dialogSelect3',
           }],
         }],
         defaultProps: {

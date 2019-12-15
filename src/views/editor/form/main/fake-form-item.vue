@@ -11,7 +11,7 @@
     //- 数字
     el-input(
       v-else-if="item.type==='number'"
-      :type="text"
+      :type="'text'"
       :disabled="true"
       :value="item.value"
     )
@@ -121,6 +121,28 @@
         div(
         v-for="i of item.options"
         ) 
+          span {{i.fondsNo}}
+          span {{i.fondsName}}
+
+    //- 弹窗选择
+    div(
+      v-else-if="item.type==='dialogSelect3'")
+      el-input(
+      :disabled="true"
+      :type="'text'"
+      :placeholder="item.placeholder"
+      :autosize="item.autosize"
+      :value="item.value")
+      el-button(
+      :disabled="true"
+      @click="dialogFormVisible==true") ...
+      el-dialog(
+        title="机构"
+        :visible.sync="dialogFormVisible")
+        div(
+        v-for="(i,index) of item.options"
+        :key="index"
+        )
           span {{i.fondsNo}}
           span {{i.fondsName}}
     span(v-else) 未知控件类型

@@ -7,7 +7,7 @@
         el-input(:value="formItem.key" readonly)
       //-el-form-item(label="默认值" v-if="formItem.optionsUrl===undefined")
         el-select(v-model="formItem.value" clearable)
-          el-option(v-for="o in formItem.options" :key="o.value" :label="o.label" :value="o.value")
+          el-option(v-for="(o,index) in formItem.options" :key="index" :label="o.label" :value="o.value")
       //-el-form-item(v-else label="数据URL")
         el-input(v-model="formItem.optionsUrl")
       el-form-item(label="字典dictKey")
