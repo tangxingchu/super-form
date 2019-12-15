@@ -99,7 +99,7 @@ export default {
       debugger;
       return idx > -1
         ? {
-          enable: true,
+          enable: false,
           sql: this.itemRules[idx].sql,
         }
         : {
