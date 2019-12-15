@@ -184,7 +184,7 @@
 
 <script>
 import request from '@/utils/request';
-import {getSysDictList, listFonds, queryDictGroupName} from '@/utils/requestDict';
+import {getSysDictList, listFonds, getSysOrganizationList} from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
 import { mapState } from 'vuex';
 import EventBus from '@/utils/eventBus';
@@ -286,7 +286,7 @@ export default {
             this.$message.error(err.message);
           });
       }
-      queryDictGroupName(fondsNo)
+      getSysOrganizationList(fondsNo)
         .then(res => {
           console.log(`机构：${res}`);
           let dictList = [];

@@ -15,7 +15,6 @@ export default {
       { "required": true, "message": '不能为空', 'trigger': 'blur' },
       { "min": 1, "max": 8, "message": '长度在 1 到 8 个字符', 'trigger': 'blur' },
       { "pattern": '^[\\w\\u4e00-\\u9fa5-_]+$', "message": '正则验证失败:^[\\w\\u4e00-\\u9fa5-_]+$', 'trigger': 'blur' },
-      { "sql": "SELECT {key} FROM balabala", "message": 'SQL验证失败', 'trigger': 'blur' }
     ],
     "span": 24,
   },
