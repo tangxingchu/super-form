@@ -16,10 +16,9 @@ const listFonds = (params) => {
 const listDictGroupName = () => {
     return requestApi(`${apiHost}/dossierWeb/sysDict/queryDictGroupName`, "POST", {data: {}});
 }
-const queryDictGroupName = () => {
-    return requestApi(`${apiHost}/dossierWeb/sysDict/queryDictGroupName`, "POST", { data: {} });
+const queryDictGroupName = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/sysOrganization/getSysOrganizationList`, "POST", { data: { ...params} });
 }
-
 export {
     listFonds,
     listDictGroupName,

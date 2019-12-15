@@ -10,7 +10,7 @@
 
 <template lang="pug">
   div.bowen-options
-    p.c666.text-center 选项配置[共{{itemOptions.length}}条]
+    p.c666.text-center 选项配置[共{{itemOptions?itemOptions.length:''}}条]
 
     div.c666(v-for="(opt,i) in itemOptions" :key="i")
 
@@ -85,8 +85,7 @@
 export default {
   props: {
     itemOptions: {
-      type: Array,
-      required: true,
+      
     },
     // selectType: {
     //   // 单选'single' / 多选'multiple'

@@ -14,7 +14,6 @@
         highlight-current-row
         @current-change="handleCurrentChange"
         style="width:100%;"
-		row-key="id"
       >
         <el-table-column type="index" width="50">
 			
@@ -29,7 +28,6 @@
     </div>
     <div v-show="active===1">
       <el-table
-	  	row-key="id"
 	  	v-loading="fieldLoading"
         ref="multipleTable"
         :data="fieldTableData"
@@ -50,7 +48,6 @@
     </div>
 	<div v-show="active===2">
       <el-table
-	  	row-key="id"
         :data="multipleSelection"
         tooltip-effect="dark"
         style="width: 100%;"

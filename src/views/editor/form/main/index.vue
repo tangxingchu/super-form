@@ -11,6 +11,7 @@ export default {
   components: { FakeForm },
   computed: {
     currentForm() {
+      
       return this.$store.state.form;
     },
   },

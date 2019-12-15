@@ -140,6 +140,16 @@ export default {
     "placeholder": '请选择',
     "rules": [],
     "span": 24,
+  },
+  "dialogSelect3": {
+    "type": 'dialogSelect3',
+    "label": '组织选择',
+    "value": '',
+    "disabled": false,
+    "multiple": false,
+    "placeholder": '请选择',
+    "rules": [],
+    "span": 24,
   }
   // {
   //   "type": 'rate',

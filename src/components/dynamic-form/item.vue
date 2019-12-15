@@ -45,9 +45,9 @@
 
       <el-radio-group v-else-if="item.type==='radio'" v-bind="$attrs" v-on="$listeners">
         <component
-          v-for="o in item.options||ajaxOptions"
+          v-for="(o,index) in item.options||ajaxOptions"
           :is="item.button?'el-radio-button':'el-radio'"
-          :key="o.value"
+          :key="index"
           :label="o.value"
           :disabled="o.disabled"
           :border="item.border"
@@ -56,9 +56,9 @@
 
       <el-checkbox-group v-else-if="item.type==='checkbox'" v-bind="$attrs" v-on="$listeners">
         <component
-          v-for="o in item.options||ajaxOptions"
+          v-for="(o,index) in item.options||ajaxOptions"
           :is="item.button?'el-checkbox-button':'el-checkbox'"
-          :key="o.value"
+          :key="index"
           :disabled="o.disabled"
           :label="o.value"
           :border="item.border"
@@ -129,7 +129,7 @@
           <div v-for="(i,index) of item.options" :key="index" @click="select(i.value)">{{ i.label }}</div>
         </el-dialog>
       </div>
-
+<!-- 全宗选择 -->
       <div
         v-else-if="item.type==='dialogSelect2'"
         :type="item.subtype"
@@ -164,6 +164,19 @@
           </div>
         </el-dialog>
       </div>
+<!-- 机构选择 -->
+      <div v-else-if="item.type==='dialogSelect3'" :type="item.subtype">
+        <el-input :disabled="item.disabled" :readonly="true" :type="'input'" :placeholder="item.placeholder"
+          :autosize="item.autosize" :value="item.name"></el-input>
+        <el-input v-show="false" :disabled="item.disabled" :type="'input'" v-bind="$attrs" v-on="$listeners"
+          :placeholder="item.placeholder" :autosize="item.autosize" :value="item.value"></el-input>
+        <el-button :disabled="item.disabled" @click="dialogFormVisible1=true">...</el-button>
+        <el-dialog :visible.sync="dialogFormVisible1" :title="item.label" width="50%">
+          <div style="max-height:300px; overflow:auto;">
+            <el-tree :data="groupList" highlight-current :props="defaultProps" ref="tree" node-key="id" @node-click="orgCheckChange"  ></el-tree>
+          </div>
+        </el-dialog>
+      </div>
       <span v-else>未知控件类型</span>
     </el-form-item>
   </el-col>
@@ -190,8 +203,17 @@ export default {
     return {
       ajaxOptions: [],
       dialogFormVisible: false,
+      dialogFormVisible1:false,
       fondsList: [],
       formList: [],
+      groupList:[],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      },
+      selectOrg: {
+        orgsid: []
+      }
     };
   },
   computed: {
@@ -235,23 +257,28 @@ export default {
   },
   created() {
     //全宗
+    console.log(`类型：${this.item}-${this.item.type}`);
     if (this.item.type == 'dialogSelect2') {
       listFonds().then(res => {
         this.fondsList = res.data;
         // console.log(res.data);
       });
     }
+    // if(this.item.type == 'dialogSelect3'){
+      
+    // }
   },
   mounted() {
     EventBus.$on('fondsNoChange', (fondsNo) => {
       if(this.item.dictKey) {
+
         getSysDictList(this.item.dictKey, fondsNo)
           .then(res => {
             let dictList = [];
             res.data.forEach(item => {
               dictList.push({ value: item.dictKey, label: item.dictValue });
             });
-            console.log(`结果：${JSON.stringify(dictList)}`);
+            // console.log(`结果：${JSON.stringify(dictList)}`);
             // this.$state.
             this.ajaxOptions = dictList;
           })
@@ -259,35 +286,29 @@ export default {
             this.$message.error(err.message);
           });
       }
-      
+      queryDictGroupName(fondsNo)
+        .then(res => {
+          console.log(`机构：${res}`);
+          let dictList = [];
+          // res.data.forEach(item => {
+          //   dictList.push({ value: item.dictKey, label: item.dictValue });
+          // });
+          // console.log(`结果：${JSON.stringify(dictList)}`);
+          // this.$state.
+          this.groupList = res.data;
+        })
+        .catch(err => {
+          this.$message.error(err.message);
+        });
     });
   },
-  mounted(){
-
-    // queryDictGroupName().then(res => {
-    //   console.log("机构："+JSON.stringify(res));
-    // })
-    EventBus.$on('fondsNoChange', (fondsNo) => {
-      //console.log(`item:${JSON.stringify(this.item)}`);
-      if (this.item.dictKey) {
-        getSysDictList(this.item.dictKey, fondsNo)
-          .then(res => {
-            let dictList = [];
-            res.data.forEach(item => {
-              dictList.push({ value: item.dictKey, label: item.dictValue });
-            });
-            //console.log(`结果：${JSON.stringify(dictList)}`);
-            // this.$state.
-            this.ajaxOptions = dictList;
-          })
-          .catch(err => {
-            this.$message.error(err.message);
-          });
-      }
-
-    });
-  },
+  
   methods: {
+    orgCheckChange(data, checked, indeterminate){
+       this.$set(this.item, 'name', data.label);
+      this.$set(this.item, 'value', data.orgCode);
+      this.dialogFormVisible1 = false;
+    },   
     select(iVal) {
       this.$set(this.item, 'value', iVal);
       this.dialogFormVisible = false;
@@ -300,6 +321,9 @@ export default {
       this.dialogFormVisible = false;
       // this.getDropDown(fondsNo);
       EventBus.$emit('fondsNoChange', fondsNo)
+    },
+    selectGroup(fondsNo){
+      
     },
     // getDropDown(fondsNo) {
     //   // const { optionsUrl, key, type, dictKey } = this.item;

@@ -9,7 +9,7 @@
     <el-row>
       <draggable v-model="formConfig.formItemList">
         <transition-group name="list-complete">
-          <div v-for="(item,i) in formConfig.formItemList" :key="item.key">
+          <div v-for="(item,i) in formConfig.formItemList" :key="i">
             <el-col
               :span="item.span"
               :class="{'selected': $store.state.itemKey===item.key}"
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     select(key) {
-      console.log(key);
+      console.log(`key:${key}`);
       this.$store.commit('SELECT_ITEM', key);
     },
     deleteItem(i) {
