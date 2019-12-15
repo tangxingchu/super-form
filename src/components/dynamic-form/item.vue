@@ -102,7 +102,8 @@
       v-on="$listeners"
     >
       <el-option
-        v-for="o in item.options || ajaxOptions"
+        v-for="(o,index) in item.options || ajaxOptions"
+        :key="index"
         :label="o.label"
         :value="o.value"
         :disabled="o.disabled"
