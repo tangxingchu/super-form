@@ -98,7 +98,7 @@ export default {
       const idx = this.itemRules.findIndex(r => r.sql !== undefined);
       return idx > -1
         ? {
-          enable: true,
+          enable: false,
           sql: this.itemRules[idx].sql,
         }
         : {
