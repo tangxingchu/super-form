@@ -5,6 +5,7 @@ import router from './router';
 import store from './store';
 import '@/components/icon-svg';
 import '@/components/dynamic-form';
+import '@/components/toolbar';
 
 Vue.use(Element);
 

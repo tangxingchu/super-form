@@ -10,6 +10,8 @@ const store = new Vuex.Store({
     itemKey: '', // 当前选中的item
     asideActiveName: 'items-list', // 侧边栏标签当前活动位置
     active: 0,
+    fieldTableData: [],
+    currentRow: null,
   },
   mutations: {
     SELECT_ITEM(state, newKey) {
@@ -21,6 +23,12 @@ const store = new Vuex.Store({
       state.asideActiveName = newName;
     },
     UPDATE_ACTIVE(state, payload) {
+      Object.assign(state, payload);
+    },
+    UPDATE_FIELDTABLEDATA(state, payload) {
+      Object.assign(state, payload);
+    },
+    UPDATE_CURRENTROW(state, payload) {
       Object.assign(state, payload);
     },
   },

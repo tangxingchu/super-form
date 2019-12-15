@@ -1,5 +1,6 @@
 <template lang="pug">
   div
+    toolbar(@clickUpdateAction="updateForm" @clickInsertAction="insertForm" @clickDelAction="delForm")
     dynamic-form(:form-config="form" v-model="hehe" ref="form-preview")
     el-button(@click='$router.go(-1)' :size="form.size") 返回
     el-button(@click='validate' :loading="loading" type="primary" :size="form.size") 测试验证
@@ -38,6 +39,24 @@ export default {
         .catch(() => {
           this.loading = false;
         });
+    },
+    updateForm() {
+      this.$message({
+          message: '预览模式不支持',
+          type: 'warning',
+      });
+    },
+    insertForm() {
+      this.$message({
+          message: '预览模式不支持',
+          type: 'warning',
+      });
+    },
+    delForm() {
+      this.$message({
+          message: '预览模式不支持',
+          type: 'warning',
+      });
     },
   },
 };
