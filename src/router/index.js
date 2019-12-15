@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Preview from '@/views/preview/preview';
+import Run from '@/views/run';
 import Editor from '@/views/editor';
 import Syscategory from '@/views/syscategory';
 import EditorFormAside from '@/views/editor/form/aside';
@@ -37,6 +38,10 @@ export default new Router({
     {
       path: '/preview',
       component: Preview,
+    },
+    {
+      path: '/run',
+      component: Run,
     },
     {
       path: '*',
