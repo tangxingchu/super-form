@@ -68,10 +68,10 @@
             label: '按钮',
             type: 'button',
           }, {
-            label: '弹窗',
+            label: '弹框',
             type: 'dialogSelect',
           }, {
-            label: '全宗',
+            label: '全宗弹框',
             type: 'dialogSelect2',
           }],
         }],
@@ -98,7 +98,6 @@
       },
       selectChanged(value) {
         this.getItem(this.value, this.data);
-        console.log(this.selElement);
         this.$emit('sendFormItem', this.selElement, this.fieldId);
       }
     }

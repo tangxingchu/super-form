@@ -128,12 +128,21 @@
       <div
         v-else-if="item.type==='dialogSelect2'"
         :type="item.subtype"
-        v-bind="$attrs"
-        v-on="$listeners"
       >
         <el-input
           :disabled="item.disabled"
+          :readonly="true"
           :type="'input'"
+          :placeholder="item.placeholder"
+          :autosize="item.autosize"
+          :value="item.name"
+        ></el-input>
+        <el-input
+          v-show="false"
+          :disabled="item.disabled"
+          :type="'input'"
+          v-bind="$attrs"
+          v-on="$listeners"
           :placeholder="item.placeholder"
           :autosize="item.autosize"
           :value="item.value"
@@ -254,9 +263,10 @@ export default {
       this.dialogFormVisible = false;
     },
     selectFonds(iVal, fondsNo) {
-      this.formList = this.$store.state.form.formItemList;
-      this.$set(this.item, 'value', iVal);
-      this.$set(this.item, 'fondsNo', fondsNo);
+      // this.formList = this.$store.state.form.formItemList;
+      this.$set(this.item, 'name', iVal);
+      this.$set(this.item, 'value', fondsNo);
+      this.$emit('input', fondsNo);
       this.dialogFormVisible = false;
       // this.getDropDown(fondsNo);
       EventBus.$emit('fondsNoChange', fondsNo)
