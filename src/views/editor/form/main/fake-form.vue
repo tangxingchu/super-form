@@ -9,7 +9,7 @@
     <el-row>
       <draggable v-model="formConfig.formItemList">
         <transition-group name="list-complete">
-          <div v-for="(item,i) in formConfig.formItemList" :key="i">
+          <div v-for="(item,i) in formConfig.formItemList" :key="item.key">
             <el-col
               :span="item.span"
               :class="{'selected': $store.state.itemKey===item.key}"
