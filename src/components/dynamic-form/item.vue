@@ -87,9 +87,9 @@
       v-on="$listeners"
     >
       <component
-        v-for="o in item.options||ajaxOptions"
+        v-for="(o,index) in item.options||ajaxOptions"
         :is="item.button?'el-checkbox-button':'el-checkbox'"
-        :key="o.value"
+        :key="index"
         :disabled="o.disabled"
         :label="o.value"
         :border="item.border"
@@ -103,7 +103,6 @@
     >
       <el-option
         v-for="o in item.options || ajaxOptions"
-        :key="o.value"
         :label="o.label"
         :value="o.value"
         :disabled="o.disabled"
@@ -179,7 +178,7 @@
         :value="item.value"></el-input>
       <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
       <el-dialog :visible.sync="dialogFormVisible" :title="item.label">
-        <div v-for="(i,index) of fondsList" :key="index" @click="select(i.fondsName,i.fondsNo)">
+        <div v-for="(i,index) of fondsList" :key="index" @click="selectFonds(i.fondsName,i.fondsNo)">
           <span>{{ i.fondsNo }}</span>
           <span>{{ i.fondsName }}</span>
         </div>
@@ -193,9 +192,10 @@
 
 <script>
 import request from '@/utils/request';
-import {getSysDictList, listFonds} from '@/utils/requestDict';
+import {getSysDictList, listFonds, queryDictGroupName} from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
 import { mapState } from 'vuex';
+import EventBus from '@/utils/eventBus';
 
 export default {
   components: {
@@ -253,30 +253,57 @@ export default {
     },
   },
   created() {
-    
     //全宗
     if(this.item.type =="dialogSelect2"){
       listFonds().then(res=>{
         this.fondsList = res.data;
-        console.log(res.data);
-      })
+        // console.log(res.data);
+      });
     }
 
   },
+  mounted(){
+
+    // queryDictGroupName().then(res => {
+    //   console.log("机构："+JSON.stringify(res));
+    // })
+    EventBus.$on('fondsNoChange', (fondsNo) => {
+      //console.log(`item:${JSON.stringify(this.item)}`);
+      if (this.item.dictKey) {
+        getSysDictList(this.item.dictKey, fondsNo)
+          .then(res => {
+            let dictList = [];
+            res.data.forEach(item => {
+              dictList.push({ value: item.dictKey, label: item.dictValue });
+            });
+            //console.log(`结果：${JSON.stringify(dictList)}`);
+            // this.$state.
+            this.ajaxOptions = dictList;
+          })
+          .catch(err => {
+            this.$message.error(err.message);
+          });
+      }
+
+    });
+  },
   methods: {
-    select(iVal, fondsNo) {
+    select(iVal) {
+      this.$set(this.item, 'value', iVal);
+      this.dialogFormVisible = false;
+    },
+    selectFonds(iVal, fondsNo) {
       this.formList = this.$store.state.form.formItemList;
       this.$set(this.item, 'value', iVal);
       this.$set(this.item, 'fondsNo', fondsNo);
       this.dialogFormVisible = false;
-      this.getDropDown(fondsNo);
-      
+      EventBus.$emit('fondsNoChange', fondsNo);
     },
-    getDropDown(fondsNo){
+    // getDropDown(fondsNo){
       // const { optionsUrl, key, type, dictKey } = this.item;
       // console.log(this.item);
       // if (optionsUrl) {
-        for(let item of this.formList){
+        // for(let item of this.formList){
           // console.log(`字段：${item}`);
           // const url = item.type === 'cascader' ? '/api/cascader/options' : '/api/some/options';
           // if(item.type === 'cascader' || item.type === 'select'){
@@ -297,26 +324,26 @@ export default {
           //     });
       // }
       //字典
-      console.log(`dictKey:${JSON.stringify(item)}`);
-          if (item.key) {
-            getSysDictList(item.key,fondsNo).then(res => {
-              console.log(res);
-              let dictList = [];
-              res.data.forEach(item => {
-                dictList.push({ value: item.dictKey, label: item.dictValue });
-              })
-              console.log(`结果：${JSON.stringify(dictList)}`);
-              // this.$state.
-              this.ajaxOptions = dictList;
-            })
-              .catch(err => {
-                this.$message.error(err.message);
-              });
-          }
-        }
-        this.$set(this.item,"options",this.ajaxOptions);
+      // console.log(`dictKey:${JSON.stringify(item)}`);
+      //     if (item.key) {
+      //       getSysDictList(item.key,fondsNo).then(res => {
+      //         console.log(res);
+      //         let dictList = [];
+      //         res.data.forEach(item => {
+      //           dictList.push({ value: item.dictKey, label: item.dictValue });
+      //         })
+      //         console.log(`结果：${JSON.stringify(dictList)}`);
+      //         // this.$state.
+      //         this.ajaxOptions = dictList;
+      //       })
+      //         .catch(err => {
+      //           this.$message.error(err.message);
+      //         });
+      //     }
+      //   }
+      //   this.$set(this.item,"options",this.ajaxOptions);
       // }
-    }
+    // }
   },
 };
 </script>

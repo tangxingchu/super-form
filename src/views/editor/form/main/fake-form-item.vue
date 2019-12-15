@@ -11,7 +11,7 @@
     //- 数字
     el-input(
       v-else-if="item.type==='number'"
-      :type="text"
+      :type="'text'"
       :disabled="true"
       :value="item.value"
     )
