@@ -65,6 +65,14 @@ const deleteFormData = (params) => {
     return requestApi(`${apiHost}/dossierWeb/sysCateTable/deleteData`, "POST", { data: { ...params} });
 }
 
+/**
+ * 查询数据
+ * @param {*} params 
+ */
+const queryFormData = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/sysCateForm/selectData`, "POST", { data: { ...params } });
+}
+
 export {
     listFonds,
     listDictGroupName,
@@ -74,4 +82,5 @@ export {
     insertFormData,
     updateFormData,
     deleteFormData,
+    queryFormData,
 }

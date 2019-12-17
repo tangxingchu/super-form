@@ -6,7 +6,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { insertFormData, updateFormData, deleteFormData } from '../../utils/requestDict';
+import { insertFormData, updateFormData, deleteFormData, queryFormData } from '../../utils/requestDict';
 
 export default {
   data() {
@@ -18,9 +18,10 @@ export default {
   computed: {
     ...mapState(['form']),
   },
-  mounted(){
-    
-    console.log(this.form.formItemList);
+  mounted(){    
+    console.log(`formItemList:${this.form.formItemList}`);
+    console.log(`queryForm:${this.queryForm()}`);
+
   },
   methods: {
     validate() {
@@ -34,6 +35,16 @@ export default {
         .catch(() => {
           this.loading = false;
         });
+    },
+    queryForm(){
+      let params = {
+        "id": 7,
+        "nodeId": "0106",
+        "tableName": "wj_jh_110"
+      }
+      queryFormData(params).then(res => {
+        this.$store.commit('UPDATE_FORM',res.data.formJson);
+      })
     },
     updateForm() {
       updateFormData(this.hehe).then(() => {
