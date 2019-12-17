@@ -96,7 +96,6 @@ export default {
     // SQL
     valid4() {
       const idx = this.itemRules.findIndex(r => r.sql !== undefined);
-      debugger;
       return idx > -1
         ? {
           enable: false,

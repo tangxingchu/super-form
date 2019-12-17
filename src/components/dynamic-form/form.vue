@@ -7,7 +7,6 @@
     <el-row>
       <dynamic-form-item
         v-for="item in formConfig.formItemList"
-        v-if="value[item.key]!==undefined"
         :key="item.key"
         :item="item"
         v-bind="item"

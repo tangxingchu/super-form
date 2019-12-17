@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     toolbar(@clickUpdateAction="updateForm" @clickInsertAction="insertForm" @clickDelAction="delForm")
-    dynamic-form(:form-config="form" v-model="hehe" ref="form-run")
+    dynamic-form(:form-config="formConfig" v-model="hehe" ref="form-run")
 </template>
 
 <script>
@@ -13,15 +13,25 @@ export default {
     return {
       hehe: {},
       loading: false,
+      form: {
+        formItemList: [],
+      },
     };
   },
   computed: {
-    ...mapState(['form']),
+    formConfig: {
+      get() {
+        return this.$store.state.form;
+      },
+      set(newV) {
+        this.$store.commit('UPDATE_FORM', newV);
+      },
+    },
   },
   mounted(){    
-    console.log(`formItemList:${this.form.formItemList}`);
-    console.log(`queryForm:${this.queryForm()}`);
-
+    // console.log(`formItemList:${this.formConfig.formItemList}`);
+    // console.log(`queryForm:${this.queryForm()}`);
+    this.queryForm();
   },
   methods: {
     validate() {
@@ -43,7 +53,10 @@ export default {
         "tableName": "wj_jh_110"
       }
       queryFormData(params).then(res => {
-        this.$store.commit('UPDATE_FORM',res.data.formJson);
+        console.log(JSON.parse(res.data.formJson));
+        // this.$store.commit('UPDATE_FORM',JSON.parse(res.data.formJson));
+        // this.form = JSON.parse(res.data.formJson);
+        this.formConfig = JSON.parse(res.data.formJson);
       })
     },
     updateForm() {
