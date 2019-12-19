@@ -6,7 +6,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import { insertFormData, updateFormData, deleteFormData, queryFormData } from '../../utils/requestDict';
+import { insertInfoData,
+  updateInfoData,
+  queryFormData } from '../../utils/requestDict';
 
 export default {
   data() {
@@ -16,6 +18,7 @@ export default {
       form: {
         formItemList: [],
       },
+      itemId: this.$route.query.id
     };
   },
   computed: {
@@ -48,9 +51,9 @@ export default {
     },
     queryForm(){
       let params = {
-        "id": 7,
-        "nodeId": "0106",
-        "tableName": "wj_jh_110"
+        "id": this.itemId,
+        "nodeId": "02020301",
+        "tableName": "da_aj_145"
       }
       queryFormData(params).then(res => {
         console.log(JSON.parse(res.data.formJson));
@@ -60,7 +63,7 @@ export default {
       })
     },
     updateForm() {
-      updateFormData(this.hehe).then(() => {
+      updateInfoData({id:this.itemId}).then(() => {
             this.$message({
                 message: '数据修改成功',
                 type: 'success',
@@ -73,7 +76,7 @@ export default {
         });
     },
     insertForm() {
-        insertFormData(this.hehe).then(() => {
+      insertInfoData({id:this.itemId}).then(() => {
             this.$message({
                 message: '数据新增成功',
                 type: 'success',

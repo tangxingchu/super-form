@@ -228,7 +228,7 @@ export default {
       });
     },
     saveForm() {
-      let data = {table_name: this.currentRow.tableName, node_id: this.currentRow.nodeId, form_json: JSON.stringify(this.formConfig)};
+      let data = {tableName: this.currentRow.tableName, nodeId: this.currentRow.nodeId, formJson: JSON.stringify(this.formConfig)};
       saveForm(data).then(() => {
           this.$message({
             message: "表单保存成功",
