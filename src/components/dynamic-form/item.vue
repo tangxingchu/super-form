@@ -184,7 +184,7 @@
 
 <script>
 import request from '@/utils/request';
-import {getSysDictList, listFonds, getSysOrganizationList} from '@/utils/requestDict';
+import {getSysDictList, listFonds, getSysOrganizationList,getValueByDictKey} from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
 import { mapState } from 'vuex';
 import EventBus from '@/utils/eventBus';
@@ -270,10 +270,16 @@ export default {
   },
   mounted() {
     EventBus.$on('fondsNoChange', (fondsNo) => {
+      console.log("key1:"+fondsNo);
       if(this.item.dictKey) {
-
-        getSysDictList(this.item.dictKey, fondsNo)
+        let params ={
+          dictKey:this.item.dictKey, 
+          fondsCode:fondsNo,
+        }
+        getValueByDictKey(params)
           .then(res => {
+            console.log("res:"+JSON.stringify(res));
+            this.ajaxOptions = [];
             let dictList = [];
             res.data.forEach(item => {
               dictList.push({ value: item.dictKey, label: item.dictValue });
@@ -281,6 +287,7 @@ export default {
             // console.log(`结果：${JSON.stringify(dictList)}`);
             // this.$state.
             this.ajaxOptions = dictList;
+            console.log("选项："+this.ajaxOptions);
           })
           .catch(err => {
             this.$message.error(err.message);

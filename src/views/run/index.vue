@@ -6,7 +6,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import { insertFormData, updateFormData, deleteFormData, queryFormData } from '../../utils/requestDict';
+import { insertInfoData,
+  updateInfoData,
+  queryFormData } from '../../utils/requestDict';
 
 export default {
   data() {
@@ -16,6 +18,7 @@ export default {
       form: {
         formItemList: [],
       },
+      itemId: this.$route.query.id
     };
   },
   computed: {

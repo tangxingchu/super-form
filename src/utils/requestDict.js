@@ -24,7 +24,10 @@ const listFonds = (params) => {
 const listDictGroupName = () => {
     return requestApi(`${apiHost}/dossierWeb/sysDict/queryDictGroupName`, "POST", {data: {}});
 }
-
+const getValueByDictKey = (params)=>{
+    console.log(...params);
+    return requestApi(`${apiHost}/dossierWeb/sysDict/getValueByDictKey`, "POST", {data:{...params}});
+}
 /**
  * 保存表单
  * @param {*} params 
@@ -42,7 +45,7 @@ const getSysOrganizationList = (params) => {
 }
 
 /**
- * 新增数据
+ * 新增动态表单
  * @param {*} params 
  */
 const insertFormData = (params) => {
@@ -50,7 +53,7 @@ const insertFormData = (params) => {
 }
 
 /**
- * 修改数据
+ * 修改动态表单
  * @param {*} params 
  */
 const updateFormData = (params) => {
@@ -58,7 +61,7 @@ const updateFormData = (params) => {
 }
 
 /**
- * 删除数据
+ * 删除动态表单
  * @param {*} params 
  */
 const deleteFormData = (params) => {
@@ -73,7 +76,39 @@ const queryFormData = (params) => {
     return requestApi(`${apiHost}/dossierWeb/sysCateForm/selectData`, "POST", { data: { ...params } });
 }
 
+const infoInformationselectByList = ()=>{
+    return requestApi(`${apiHost}/dossierWeb/infoInformation/selectByList`, "POST", { data: {} });
+}
+
+/**
+ * 删除数据
+ * @param {*} params 
+ */
+const deleteInfoInformation=(params)=>{
+    return requestApi(`${apiHost}/dossierWeb/infoInformation/deleteInfoInformation`, "POST", { data: {...params} });
+}
+
+
+/**
+ * 新增数据
+ * @param {*} params 
+ */
+const insertInfoData = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/infoInformation/insertInfoInformation`, "POST", { data: { ...params} });
+}
+
+/**
+ * 修改数据
+ * @param {*} params 
+ */
+const updateInfoData = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/infoInformation/updateInfoInformation`, "POST", { data: { ...params} });
+}
+
+
 export {
+    insertInfoData,
+    updateInfoData,
     listFonds,
     listDictGroupName,
     getSysDictList,
@@ -83,4 +118,7 @@ export {
     updateFormData,
     deleteFormData,
     queryFormData,
+    getValueByDictKey,
+    infoInformationselectByList,
+    deleteInfoInformation,
 }
