@@ -10,4 +10,9 @@ export default (url, method, body) => fetch(url, {
       return response.json();
     }
     throw new Error(response.statusText);
+  }).then(data => {
+    if(data.code != "0") {
+      throw new Error(data.msg);
+    }
+    return data;
   });

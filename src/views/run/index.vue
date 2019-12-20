@@ -37,9 +37,9 @@ export default {
     validate() {
       this.loading = true;
       const form = this.$refs['form-run'].$children[0];
-      form
+      return form
         .validate()
-        .then(() => {
+        .then((data) => {
           this.loading = false;
         })
         .catch(() => {
@@ -48,19 +48,25 @@ export default {
     },
     queryForm(){
       let params = {
-        "id": 7,
-        "nodeId": "0106",
-        "tableName": "wj_jh_110"
+        "nodeId": "020203",
+        "tableName": "da_xm_144"
       }
       queryFormData(params).then(res => {
-        console.log(JSON.parse(res.data.formJson));
+        // console.log(JSON.parse(res.data.formJson));
         // this.$store.commit('UPDATE_FORM',JSON.parse(res.data.formJson));
         // this.form = JSON.parse(res.data.formJson);
-        this.formConfig = JSON.parse(res.data.formJson);
+        if(res.data && res.data.length == 1) {
+          this.formConfig = JSON.parse(res.data[0].formJson);
+        } else {
+          this.$message({
+                message: '没有找到相关数据',
+                type: 'error',
+            });
+        }
       })
     },
     updateForm() {
-      updateFormData(this.hehe).then(() => {
+      updateFormData({nodeid: "020203", values: JSON.stringify(this.hehe)}).then(() => {
             this.$message({
                 message: '数据修改成功',
                 type: 'success',
@@ -73,7 +79,8 @@ export default {
         });
     },
     insertForm() {
-        insertFormData(this.hehe).then(() => {
+        this.validate().then(data => console.log(data));
+        insertFormData({nodeid: "020203", values: JSON.stringify(this.hehe)}).then(() => {
             this.$message({
                 message: '数据新增成功',
                 type: 'success',
