@@ -185,7 +185,7 @@ export default {
       return requestApi(
         `${apiHost}/dossierWeb/sysCategoryField/selectByList`,
         'POST',
-        { data: { tableName: this.currentRow.tableName } },
+        { data: { tableName: this.currentRow.tableName, pageSize: 200 } },
       )
         .then(result => {
           this.fieldLoading = false;

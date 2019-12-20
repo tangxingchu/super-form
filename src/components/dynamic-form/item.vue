@@ -278,7 +278,7 @@ export default {
         }
         getValueByDictKey(params)
           .then(res => {
-            console.log("res:"+JSON.stringify(res));
+            // console.log("res:"+JSON.stringify(res));
             this.ajaxOptions = [];
             let dictList = [];
             res.data.forEach(item => {
@@ -287,15 +287,16 @@ export default {
             // console.log(`结果：${JSON.stringify(dictList)}`);
             // this.$state.
             this.ajaxOptions = dictList;
-            console.log("选项："+this.ajaxOptions);
+            // console.log("选项："+this.ajaxOptions);
           })
           .catch(err => {
             this.$message.error(err.message);
           });
       }
-      getSysOrganizationList(fondsNo)
+      if(this.item.key === "department") {
+        getSysOrganizationList(fondsNo)
         .then(res => {
-          console.log(`机构：${res}`);
+          // console.log(`机构：${res}`);
           let dictList = [];
           // res.data.forEach(item => {
           //   dictList.push({ value: item.dictKey, label: item.dictValue });
@@ -307,6 +308,7 @@ export default {
         .catch(err => {
           this.$message.error(err.message);
         });
+      }
     });
   },
   
