@@ -316,6 +316,7 @@ export default {
     orgCheckChange(data, checked, indeterminate){
        this.$set(this.item, 'name', data.label);
       this.$set(this.item, 'value', data.orgCode);
+      this.$emit('input', data.orgCode);
       this.dialogFormVisible1 = false;
     },   
     select(iVal) {

@@ -89,6 +89,9 @@ export default {
               if (item.key === 'fonds_no') {
                 item.name = result.data[0]["fonds_name"];
               }
+              if (item.key === 'department') {
+                item.name = result.data[0]["org_name"];
+              }
               if (item.dictKey) {
                 dictKyes.push(item.dictKey);
               }
