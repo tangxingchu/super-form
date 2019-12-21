@@ -356,13 +356,6 @@ export default {
       this.dialogFormVisible1 = true;
       getSysOrganizationList({ fondsCode: this.currFondsNo || fondsCode})
         .then(res => {
-          // console.log(`机构：${res}`);
-          let dictList = [];
-          // res.data.forEach(item => {
-          //   dictList.push({ value: item.dictKey, label: item.dictValue });
-          // });
-          // console.log(`结果：${JSON.stringify(dictList)}`);
-          // this.$state.
           this.groupList = res.data;
         })
         .catch(err => {
