@@ -133,7 +133,11 @@
           :placeholder="item.placeholder"
           :autosize="item.autosize"
           :value="item.name"
-        ></el-input>
+        >
+          <template slot="append">
+            <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
+          </template>
+        </el-input>
         <el-input
           v-show="false"
           :disabled="item.disabled"
@@ -144,7 +148,6 @@
           :autosize="item.autosize"
           :value="item.value"
         ></el-input>
-        <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
         <el-dialog :visible.sync="dialogFormVisible" :title="item.label">
           <div
             v-for="(i,index) of fondsList"
@@ -165,7 +168,11 @@
           :placeholder="item.placeholder"
           :autosize="item.autosize"
           :value="item.name"
-        ></el-input>
+        >
+          <template slot="append">
+            <el-button :disabled="item.disabled" @click="selectSysOrganizationList(item.fondsCode)">...</el-button>
+          </template>
+        </el-input>
         <el-input
           v-show="false"
           :disabled="item.disabled"
@@ -176,7 +183,7 @@
           :autosize="item.autosize"
           :value="item.value"
         ></el-input>
-        <el-button :disabled="item.disabled" @click="selectSysOrganizationList(item.fondsCode)">...</el-button>
+        
         <el-dialog :visible.sync="dialogFormVisible1" :title="item.label" width="50%">
           <div style="max-height:300px; overflow:auto;">
             <el-tree
@@ -344,7 +351,7 @@ export default {
         return;
       }
       this.dialogFormVisible1 = true;
-      getSysOrganizationList({ fondsCode: fondsCode || this.currFondsNo })
+      getSysOrganizationList({ fondsCode: this.currFondsNo || fondsCode})
         .then(res => {
           // console.log(`机构：${res}`);
           let dictList = [];
