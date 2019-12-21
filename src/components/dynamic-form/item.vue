@@ -343,8 +343,6 @@ export default {
       this.$set(this.item, 'value', fondsNo);
       this.$emit('input', fondsNo);
       this.dialogFormVisible = false;
-      // this.getDropDown(fondsNo);
-      this.currFondsNo = fondsNo;
       EventBus.$emit('fondsNoChange', fondsNo);
     },
     selectGroup(fondsNo) {},
