@@ -82,6 +82,7 @@ export default {
                 message: '没有查询到数据',
                 type: 'error',
               });
+              return;
             }
             //初始化字典与全宗数据
             let dictKyes = [];
