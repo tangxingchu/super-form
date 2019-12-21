@@ -93,9 +93,10 @@
       :placeholder="item.placeholder"
       :autosize="item.autosize"
       :value="item.value")
-      el-button(
-      :disabled="true"
-      @click="dialogFormVisible==true") ...
+        template(slot="append")
+          el-button(
+          :disabled="true"
+          @click="dialogFormVisible==true") ...
       el-dialog(
         title="请选择"
         :visible.sync="dialogFormVisible")
@@ -111,10 +112,12 @@
       :type="'text'"
       :placeholder="item.placeholder"
       :autosize="item.autosize"
-      :value="item.value")
-      el-button(
-      :disabled="true"
-      @click="dialogFormVisible==true") ...
+      :value="item.value"
+      )
+        template(slot="append")
+          el-button(
+            :disabled="true"
+            @click="dialogFormVisible==true") ...
       el-dialog(
         title="全宗"
         :visible.sync="dialogFormVisible")
@@ -133,9 +136,10 @@
       :placeholder="item.placeholder"
       :autosize="item.autosize"
       :value="item.value")
-      el-button(
-      :disabled="true"
-      @click="dialogFormVisible==true") ...
+        template(slot="append")
+          el-button(
+          :disabled="true"
+          @click="dialogFormVisible==true") ...
       el-dialog(
         title="机构"
         :visible.sync="dialogFormVisible")
