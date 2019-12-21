@@ -118,8 +118,11 @@
           :placeholder="item.placeholder"
           :autosize="item.autosize"
           :value="item.value"
-        ></el-input>
-        <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
+        >
+          <template slot="append">
+            <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
+          </template>
+        </el-input>
         <el-dialog :visible.sync="dialogFormVisible" :title="item.label">
           <div v-for="(i,index) of item.options" :key="index" @click="select(i.value)">{{ i.label }}</div>
         </el-dialog>
