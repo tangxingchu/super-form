@@ -65,28 +65,23 @@
         >{{ o.label }}</component>
       </el-checkbox-group>
 
-    <el-select
-      v-else-if="item.type==='select'"
-      v-bind="$attrs"
-      v-on="$listeners"
-    >
-      <el-option
-        v-for="(o,index) in item.options || ajaxOptions"
-        :key="index"
-        :label="o.label"
-        :value="o.value"
-        :disabled="o.disabled"
-      >
-      </el-option>
-    </el-select>
+      <el-select v-else-if="item.type==='select'" v-bind="$attrs" v-on="$listeners">
+        <el-option
+          v-for="(o,index) in item.options || ajaxOptions"
+          :key="index"
+          :label="o.label"
+          :value="o.value"
+          :disabled="o.disabled"
+        ></el-option>
+      </el-select>
 
-    <el-cascader
-      v-else-if="item.type==='cascader'"
-      v-bind="$attrs"
-      :options="item.options||require('element-china-area-data')[item.areaShortcut]||ajaxOptions"
-      :clearable="true"
-      v-on="$listeners"
-    ></el-cascader>
+      <el-cascader
+        v-else-if="item.type==='cascader'"
+        v-bind="$attrs"
+        :options="item.options||require('element-china-area-data')[item.areaShortcut]||ajaxOptions"
+        :clearable="true"
+        v-on="$listeners"
+      ></el-cascader>
 
       <el-time-picker
         v-else-if="item.type==='time'"
@@ -129,11 +124,8 @@
           <div v-for="(i,index) of item.options" :key="index" @click="select(i.value)">{{ i.label }}</div>
         </el-dialog>
       </div>
-<!-- 全宗选择 -->
-      <div
-        v-else-if="item.type==='dialogSelect2'"
-        :type="item.subtype"
-      >
+      <!-- 全宗选择 -->
+      <div v-else-if="item.type==='dialogSelect2'" :type="item.subtype">
         <el-input
           :disabled="item.disabled"
           :readonly="true"
@@ -164,16 +156,37 @@
           </div>
         </el-dialog>
       </div>
-<!-- 机构选择 -->
+      <!-- 机构选择 -->
       <div v-else-if="item.type==='dialogSelect3'" :type="item.subtype">
-        <el-input :disabled="item.disabled" :readonly="true" :type="'input'" :placeholder="item.placeholder"
-          :autosize="item.autosize" :value="item.name"></el-input>
-        <el-input v-show="false" :disabled="item.disabled" :type="'input'" v-bind="$attrs" v-on="$listeners"
-          :placeholder="item.placeholder" :autosize="item.autosize" :value="item.value"></el-input>
-        <el-button :disabled="item.disabled" @click="dialogFormVisible1=true">...</el-button>
+        <el-input
+          :disabled="item.disabled"
+          :readonly="true"
+          :type="'input'"
+          :placeholder="item.placeholder"
+          :autosize="item.autosize"
+          :value="item.name"
+        ></el-input>
+        <el-input
+          v-show="false"
+          :disabled="item.disabled"
+          :type="'input'"
+          v-bind="$attrs"
+          v-on="$listeners"
+          :placeholder="item.placeholder"
+          :autosize="item.autosize"
+          :value="item.value"
+        ></el-input>
+        <el-button :disabled="item.disabled" @click="selectSysOrganizationList(item.fondsCode)">...</el-button>
         <el-dialog :visible.sync="dialogFormVisible1" :title="item.label" width="50%">
           <div style="max-height:300px; overflow:auto;">
-            <el-tree :data="groupList" highlight-current :props="defaultProps" ref="tree" node-key="id" @node-click="orgCheckChange"  ></el-tree>
+            <el-tree
+              :data="item.groupList || groupList"
+              highlight-current
+              :props="defaultProps"
+              ref="tree"
+              node-key="id"
+              @node-click="orgCheckChange"
+            ></el-tree>
           </div>
         </el-dialog>
       </div>
@@ -184,7 +197,12 @@
 
 <script>
 import request from '@/utils/request';
-import {getSysDictList, listFonds, getSysOrganizationList,getValueByDictKey} from '@/utils/requestDict';
+import {
+  getSysDictList,
+  listFonds,
+  getSysOrganizationList,
+  getValueByDictKey,
+} from '@/utils/requestDict';
 import Richtext from '@/components/tinymce';
 import { mapState } from 'vuex';
 import EventBus from '@/utils/eventBus';
@@ -203,17 +221,17 @@ export default {
     return {
       ajaxOptions: [],
       dialogFormVisible: false,
-      dialogFormVisible1:false,
+      dialogFormVisible1: false,
       fondsList: [],
       formList: [],
-      groupList:[],
+      groupList: [],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'label',
       },
       selectOrg: {
-        orgsid: []
-      }
+        orgsid: [],
+      },
     };
   },
   computed: {
@@ -265,17 +283,16 @@ export default {
       });
     }
     // if(this.item.type == 'dialogSelect3'){
-      
+
     // }
   },
   mounted() {
-    EventBus.$on('fondsNoChange', (fondsNo) => {
-      console.log("key1:"+fondsNo);
-      if(this.item.dictKey) {
-        let params ={
-          dictKey:this.item.dictKey, 
-          fondsCode:fondsNo,
-        }
+    EventBus.$on('fondsNoChange', fondsNo => {
+      if (this.item.dictKey) {
+        let params = {
+          dictKey: this.item.dictKey,
+          fondsCode: fondsNo,
+        };
         getValueByDictKey(params)
           .then(res => {
             // console.log("res:"+JSON.stringify(res));
@@ -293,8 +310,41 @@ export default {
             this.$message.error(err.message);
           });
       }
-      if(this.item.key === "department") {
-        getSysOrganizationList(fondsNo)
+      if (this.item.key === 'department') {
+        this.currFondsNo = fondsNo;
+      }
+    });
+  },
+
+  methods: {
+    orgCheckChange(data, checked, indeterminate) {
+      this.$set(this.item, 'name', data.label);
+      this.$set(this.item, 'value', data.orgCode);
+      this.$emit('input', data.orgCode);
+      this.dialogFormVisible1 = false;
+    },
+    select(iVal) {
+      this.$set(this.item, 'value', iVal);
+      this.dialogFormVisible = false;
+    },
+    selectFonds(iVal, fondsNo) {
+      // this.formList = this.$store.state.form.formItemList;
+      this.$set(this.item, 'name', iVal);
+      this.$set(this.item, 'value', fondsNo);
+      this.$emit('input', fondsNo);
+      this.dialogFormVisible = false;
+      // this.getDropDown(fondsNo);
+      this.currFondsNo = fondsNo;
+      EventBus.$emit('fondsNoChange', fondsNo);
+    },
+    selectGroup(fondsNo) {},
+    selectSysOrganizationList(fondsCode) {
+      if (!this.currFondsNo && !fondsCode) {
+        this.$message.info('请先选择全宗');
+        return;
+      }
+      this.dialogFormVisible1 = true;
+      getSysOrganizationList({ fondsCode: fondsCode || this.currFondsNo })
         .then(res => {
           // console.log(`机构：${res}`);
           let dictList = [];
@@ -308,32 +358,6 @@ export default {
         .catch(err => {
           this.$message.error(err.message);
         });
-      }
-    });
-  },
-  
-  methods: {
-    orgCheckChange(data, checked, indeterminate){
-       this.$set(this.item, 'name', data.label);
-      this.$set(this.item, 'value', data.orgCode);
-      this.$emit('input', data.orgCode);
-      this.dialogFormVisible1 = false;
-    },   
-    select(iVal) {
-      this.$set(this.item, 'value', iVal);
-      this.dialogFormVisible = false;
-    },
-    selectFonds(iVal, fondsNo) {
-      // this.formList = this.$store.state.form.formItemList;
-      this.$set(this.item, 'name', iVal);
-      this.$set(this.item, 'value', fondsNo);
-      this.$emit('input', fondsNo);
-      this.dialogFormVisible = false;
-      // this.getDropDown(fondsNo);
-      EventBus.$emit('fondsNoChange', fondsNo)
-    },
-    selectGroup(fondsNo){
-      
     },
     // getDropDown(fondsNo) {
     //   // const { optionsUrl, key, type, dictKey } = this.item;
