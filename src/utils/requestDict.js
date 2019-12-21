@@ -60,6 +60,15 @@ const updateFormData = (params) => {
     return requestApi(`${apiHost}/dossierWeb/sysCateTable/updateData`, "POST", { data: { ...params} });
 }
 
+
+/**
+ * 查询动态表单数据
+ * @param {*} params 
+ */
+const selectFormData = (params) => {
+    return requestApi(`${apiHost}/dossierWeb/syscateTable/selectData`, "POST", { data: { ...params} });
+}
+
 /**
  * 删除动态表单
  * @param {*} params 
@@ -116,6 +125,7 @@ export {
     getSysOrganizationList,
     insertFormData,
     updateFormData,
+    selectFormData,
     deleteFormData,
     queryFormData,
     getValueByDictKey,

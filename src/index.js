@@ -7,6 +7,7 @@ import '@/components/icon-svg';
 import '@/components/dynamic-form';
 import '@/components/toolbar';
 
+
 Vue.use(Element);
 
 Vue.config.productionTip = false;
