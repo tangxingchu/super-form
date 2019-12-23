@@ -159,7 +159,7 @@ export default {
       });
     },
     updateForm() {
-      updateFormData({ id: this.$route.query.id, nodeid: '020203', values: JSON.stringify(this.hehe) })
+      updateFormData({ id: this.$route.query.id, nodeid: queryParams.nodeId, values: JSON.stringify(this.hehe) })
         .then(() => {
           this.$message({
             message: '数据修改成功',
@@ -178,7 +178,7 @@ export default {
       this.validate((flag, obj) => {
         if (flag) {
           insertFormData({
-            nodeid: '020203',
+            nodeid: queryParams.nodeId,
             values: JSON.stringify(this.hehe),
           })
             .then(() => {
