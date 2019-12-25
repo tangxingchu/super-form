@@ -7,7 +7,15 @@
 
 <template>
   <el-col :span="item.span">
-    <el-form-item :rules="Rules" :label="item.label" :prop="item.key" :class="{'block':item.block}">
+    <div
+      v-if="item.type==='label'"
+      :type="'text'"
+      :disabled="true"
+      :style="[{'color': item.fontColor },{'font-size': item.fontSize + 'px'}, {'text-align': item.align}]">
+      <span >{{item.label}}</span>
+    </div>
+    
+    <el-form-item v-else :rules="Rules" :label="item.label" :prop="item.key" :class="{'block':item.block}">
       <el-input v-if="item.type==='input'" v-bind="$attrs" :type="item.subtype" v-on="$listeners"></el-input>
 
       <el-button v-else-if="item.type==='button'" :disabled="item.disabled">{{ item.value }}</el-button>

@@ -1,5 +1,10 @@
 <template lang="pug">
-  el-form-item(:label="item.label")
+  div(
+    v-if="item.type==='label'"
+    :style="[{'color': item.fontColor },{'font-size': item.fontSize + 'px'}, {'text-align': item.align}]"
+  )
+    span {{item.label}}
+  el-form-item(v-else :label="item.label")
     //- 文本
     el-input(
       v-if="item.type==='input'||item.type==='richtext'"
@@ -149,8 +154,9 @@
         )
           span {{i.fondsNo}}
           span {{i.fondsName}}
+    
     span(v-else) 未知控件类型
-
+  
 </template>
 
 <script>

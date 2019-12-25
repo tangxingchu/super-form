@@ -66,6 +66,7 @@ import EditorButton from './editors-item/button';
 import EditorDialogSelect from './editors-item/dialogSelect';
 import EditorDialogSelect2 from './editors-item/dialogSelect1';
 import EditorDialogSelect3 from './editors-item/dialogSelect2';
+import EditorLabel from './editors-item/label';
 
 export default {
   components: {
@@ -83,6 +84,7 @@ export default {
     EditorDialogSelect,
     EditorDialogSelect2,
     EditorDialogSelect3,
+    EditorLabel,
   },
   computed: {
     activeName: {

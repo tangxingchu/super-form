@@ -149,7 +149,15 @@ export default {
     "placeholder": '请选择',
     "rules": [],
     "span": 24,
-  }
+  },
+  "label": {
+    "type": 'label',
+    "label": '标签',
+    "span": 24,
+    "align": "left",
+    "fontSize": 18,
+    "fontColor": "",
+  },
   // {
   //   "type": 'rate',
   //   "label": '评分',

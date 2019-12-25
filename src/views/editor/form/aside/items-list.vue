@@ -284,6 +284,14 @@
       <icon-svg icon="richtext" ></icon-svg>
       <span>富文本</span>
     </el-tag>
+    <!-- 标签 -->
+    <el-tag
+      class="item"
+      @click.native="addItem('label')"
+    >
+      <icon-svg icon="richtext" ></icon-svg>
+      <span>标签</span>
+    </el-tag>
   </div>
 </template>
 
