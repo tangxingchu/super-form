@@ -3,6 +3,7 @@ export default {
   "input": {
     "type": 'input', // 必要, String
     "subtype": 'text',
+    "name": "",
     "label": '文本', // 必要, String
     "disabled": false, //禁用, Boolean
     "readonly": false, //只读, Boolean
@@ -20,6 +21,7 @@ export default {
   },
   "number": {
     "type": 'number', // number 类型目前采用的是"输入前"限制, 使用rules验证会出现bug
+    "name": "",
     "label": '数字',
     "value": 16,
     "decimal1": 2, // 允许的小数位数
@@ -31,6 +33,7 @@ export default {
   },
   "switch": {
     "type": 'switch',
+    "name": "",
     "label": '开关',
     "appearance": "switch", // 外观, 'switch'开关(默认) / checkbox勾选
     "value": true,
@@ -38,6 +41,7 @@ export default {
   },
   "radio": {
     "type": 'radio',
+    "name": "",
     "label": '单选',
     "value": '',
     // "options": [
@@ -57,6 +61,7 @@ export default {
   },
   "checkbox": {
     "type": 'checkbox',
+    "name": "",
     "label": '多选',
     "value": [],
     "dictKey": "",//字典key
@@ -72,6 +77,7 @@ export default {
   },
   "select": {
     "type": 'select',
+    "name": "",
     "label": '下拉',
     "value": '',
     "dictKey": "",//字典key
@@ -84,6 +90,7 @@ export default {
   },
   "date": {
     "type": 'date',
+    "name": "",
     // "subtype": 'year',
     // "label": '年',
     "value": null,
@@ -98,6 +105,7 @@ export default {
   },
   "cascader": {
     "type": 'cascader',
+    "name": "",
     "label": '级联选择',
     "disabled": false,
     "filterable": false,
@@ -110,18 +118,21 @@ export default {
   },
   "richtext": {
     "type": "richtext",
+    "name": "",
     "label": "内容",
     "value": '',
     "span": 24,
   },
   "button": {
     "type": "button",
+    "name": "",
     "label": "",
     "value": '按钮',
     "span": 24,
   },
   "dialogSelect": {
     "type": 'dialogSelect',
+    "name": "",
     "label": '弹窗选择',
     "value": '',
     "disabled": false,
@@ -132,6 +143,7 @@ export default {
   },
   "dialogSelect2": {
     "type": 'dialogSelect2',
+    "name": "",
     "label": '全宗选择',
     "value": '',
     "disabled": false,
@@ -142,6 +154,7 @@ export default {
   },
   "dialogSelect3": {
     "type": 'dialogSelect3',
+    "name": "",
     "label": '组织选择',
     "value": '',
     "disabled": false,
@@ -152,6 +165,7 @@ export default {
   },
   "label": {
     "type": 'label',
+    "name": "",
     "label": '标签',
     "span": 24,
     "align": "left",

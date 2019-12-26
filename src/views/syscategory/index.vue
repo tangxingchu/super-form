@@ -136,7 +136,8 @@ export default {
             ...JSON.parse(
               JSON.stringify(AVAILABEL_FORM_ITEM_LIST[item.itemType]),
             ),
-            key: item.fieldName,
+            key,
+            name: item.fieldName,
             ...item.formItem,
             label: item.fieldCaption,
           };

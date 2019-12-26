@@ -10,9 +10,9 @@
         :key="item.key"
         :item="item"
         v-bind="item"
-        :value="value[item.key]"
+        :value="value[item.name]"
         :style="{'min-width':columnMinWidth}"
-        @input="handleInput($event, item.key)"
+        @input="handleInput($event, item.name)"
       ></dynamic-form-item>
     </el-row>
     <slot></slot>
@@ -39,19 +39,20 @@ export default {
     this.setDefaultValue();
   },
   methods: {
-    handleInput(val, key) {
+    handleInput(val, name) {
       // 这里element-ui没有上报event，直接就是value了
-      this.$emit('input', { ...this.value, [key]: val });
+      this.$emit('input', { ...this.value, [name]: val });
     },
     setDefaultValue() {
       const formData = { ...this.value };
       // 设置默认值
       this.formConfig.formItemList.forEach(item => {
-        const { key, value } = item;
-        if (formData[key] === undefined || formData[key] === null) {
-          formData[key] = value;
+        const { name, value } = item;
+        if (formData[name] === undefined || formData[name] === null) {
+          formData[name] = value;
         }
       });
+      console.log(formData)
       this.$emit('input', { ...formData });
     },
   },

@@ -75,7 +75,7 @@ export default {
           }).then(result => {
             if (result.data && result.data.length > 0) {
               this.formConfig.formItemList.forEach(item => {
-                this.hehe[item.key] = result.data[0][item.key];
+                this.hehe[item.name] = result.data[0][item.name];
               });              
             } else {
               this.$message({
@@ -87,11 +87,11 @@ export default {
             //初始化字典与全宗数据
             let dictKyes = [];
             this.formConfig.formItemList.map(item => {
-              if (item.key === 'fonds_no') {
-                item.name = result.data[0]["fonds_name"];
+              if (item.name === 'fonds_no') {
+                item.displayName = result.data[0]["fonds_name"];
               }
-              if (item.key === 'department') {
-                item.name = result.data[0]["org_name"];
+              if (item.name === 'department') {
+                item.displayName = result.data[0]["org_name"];
                 item.fondsCode = result.data[0]["fonds_no"];
               }
               if (item.dictKey) {
@@ -159,7 +159,7 @@ export default {
       });
     },
     updateForm() {
-      updateFormData({ id: this.$route.query.id, nodeid: queryParams.nodeId, values: JSON.stringify(this.hehe) })
+      updateFormData({ id: this.$route.query.id, nodeid: this.$route.query.nodeId, values: JSON.stringify(this.hehe) })
         .then(() => {
           this.$message({
             message: '数据修改成功',
@@ -178,7 +178,7 @@ export default {
       this.validate((flag, obj) => {
         if (flag) {
           insertFormData({
-            nodeid: queryParams.nodeId,
+            nodeid: this.$route.query.nodeId,
             values: JSON.stringify(this.hehe),
           })
             .then(() => {

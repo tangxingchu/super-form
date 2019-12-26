@@ -15,7 +15,7 @@
       <span >{{item.label}}</span>
     </div>
     
-    <el-form-item v-else :rules="Rules" :label="item.label" :prop="item.key" :class="{'block':item.block}">
+    <el-form-item v-else :rules="Rules" :label="item.label" :prop="item.name" :class="{'block':item.block}">
       <el-input v-if="item.type==='input'" v-bind="$attrs" :type="item.subtype" v-on="$listeners"></el-input>
 
       <el-button v-else-if="item.type==='button'" :disabled="item.disabled">{{ item.value }}</el-button>
@@ -143,7 +143,7 @@
           :type="'input'"
           :placeholder="item.placeholder"
           :autosize="item.autosize"
-          :value="item.name"
+          :value="item.displayName"
         >
           <template slot="append">
             <el-button :disabled="item.disabled" @click="dialogFormVisible=true">...</el-button>
@@ -178,7 +178,7 @@
           :type="'input'"
           :placeholder="item.placeholder"
           :autosize="item.autosize"
-          :value="item.name"
+          :value="item.displayName"
         >
           <template slot="append">
             <el-button :disabled="item.disabled" @click="selectSysOrganizationList(item.fondsCode)">...</el-button>
@@ -328,7 +328,7 @@ export default {
             this.$message.error(err.message);
           });
       }
-      if (this.item.key === 'department') {
+      if (this.item.name === 'department') {
         this.currFondsNo = fondsNo;
       }
     });
@@ -336,7 +336,7 @@ export default {
 
   methods: {
     orgCheckChange(data, checked, indeterminate) {
-      this.$set(this.item, 'name', data.label);
+      this.$set(this.item, 'displayName', data.label);
       this.$set(this.item, 'value', data.orgCode);
       this.$emit('input', data.orgCode);
       this.dialogFormVisible1 = false;
@@ -347,7 +347,7 @@ export default {
     },
     selectFonds(iVal, fondsNo) {
       // this.formList = this.$store.state.form.formItemList;
-      this.$set(this.item, 'name', iVal);
+      this.$set(this.item, 'displayName', iVal);
       this.$set(this.item, 'value', fondsNo);
       this.$emit('input', fondsNo);
       this.dialogFormVisible = false;
@@ -368,54 +368,6 @@ export default {
           this.$message.error(err.message);
         });
     },
-    // getDropDown(fondsNo) {
-    //   // const { optionsUrl, key, type, dictKey } = this.item;
-    //   // console.log(this.item);
-    //   // if (optionsUrl) {
-    //   for (let item of this.formList) {
-    //     console.log(`字段：${item}`);
-    //     const url =
-    //       item.type === 'cascader'
-    //         ? '/api/cascader/options'
-    //         : '/api/some/options';
-    //     if (item.type === 'cascader' || item.type === 'select') {
-    //       console.log(
-    //         `本页面为模拟预览，已自动重定向到URL:${url}，查看Network以获取格式`,
-    //       );
-    //       request(`${url}?key=${item.key}`, 'GET')
-    //         .then(res => {
-    //           console.log(res);
-    //           // this.item.options = res
-    //           // this.$set(this.item, 'options', res)
-    //           this.ajaxOptions = res;
-    //           console.log(this.ajaxOptions);
-    //         })
-    //         .catch(err => {
-    //           this.$message.error(err.message);
-    //         });
-    //       // }
-    //       //字典
-    //       console.log(`dictKey:${JSON.stringify(item)}`);
-    //       if (item.key) {
-    //         getSysDictList(item.key, fondsNo)
-    //           .then(res => {
-    //             console.log(res);
-    //             let dictList = [];
-    //             res.data.forEach(item => {
-    //               dictList.push({ value: item.dictKey, label: item.dictValue });
-    //             });
-    //             console.log(`结果：${JSON.stringify(dictList)}`);
-    //             // this.$state.
-    //             this.ajaxOptions = dictList;
-    //           })
-    //           .catch(err => {
-    //             this.$message.error(err.message);
-    //           });
-    //       }
-    //     }
-    //     this.$set(this.item, 'options', this.ajaxOptions);
-    //   }
-    // },
   },
 };
 </script>
