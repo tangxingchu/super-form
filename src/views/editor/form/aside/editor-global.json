@@ -8,12 +8,14 @@
     {
       "type": "switch",
       "label": "内联模式",
+      "name": "inline",
       "key": "inline",
       "value": false
     },
     {
       "type": "input",
       "label": "每行几列",
+      "name": "col",
       "key": "col",
       "value": false
     },
@@ -21,6 +23,7 @@
       "type": "input",
       "subtype": "text",
       "label": "标签宽度",
+      "name": "labelWidth",
       "key": "labelWidth",
       "value": "",
       "placeholder": "css width属性, 可不填, 但会影响对齐"
@@ -28,6 +31,7 @@
     {
       "type": "radio",
       "label": "标签对齐",
+      "name": "labelPosition",
       "key": "labelPosition",
       "value": "right",
       "button": true,
@@ -49,6 +53,7 @@
     {
       "type": "select",
       "label": "尺寸",
+      "name": "size",
       "key": "size",
       "value": "small",
       "options": [
@@ -73,6 +78,7 @@
     {
       "type": "switch",
       "label": "验证图标",
+      "name": "statusIcon",
       "key": "statusIcon",
       "value": true
     }

@@ -1,27 +1,154 @@
 {
-    "fonds_no": "0000",
-    "archive_ctg_no": "a",
-    "archive_no": "a",
-    "archive_unit": "a",
-    "checker": "a",
-    "collator": "a",
-    "content_no": "1",
-    "department": "00",
-    "doc_end_date": "2019-12-02T16:00:00.000Z",
-    "doc_start_date": "2019-12-03T16:00:00.000Z",
-    "filing_year": "1",
-    "folder_location": "1",
-    "handoverTime": "2019-12-30T16:00:00.000Z",
-    "handover_unit": "1",
-    "inspection_date": "2019-12-10T16:00:00.000Z",
-    "item_no": "1",
-    "maintitle": "1",
-    "note": "1",
-    "number_no": "1",
-    "page_no": "1",
-    "piece_no": "1",
-    "pigeonhole_date": "2019-12-30T16:00:00.000Z",
-    "reference_no": "1",
-    "retention": "D10",
-    "security_class": "4"
+    "inline": false,
+    "labelPosition": "right",
+    "labelWidth": "80px",
+    "size": "small",
+    "statusIcon": true,
+    "formItemList": [
+        {
+            "type": "dialogSelect2",
+            "label": "全宗号",
+            "value": "",
+            "disabled": false,
+            "multiple": false,
+            "placeholder": "请选择",
+            "rules": [],
+            "span": 12,
+            "key": "0ef5a94f-f620-4ec2-afbb-5171de0a068c",
+            "name": "fonds_no"
+        },
+        {
+            "type": "dialogSelect3",
+            "label": "部门名称",
+            "value": "",
+            "disabled": false,
+            "multiple": false,
+            "placeholder": "请选择",
+            "rules": [],
+            "span": 12,
+            "key": "ccf6c55e-8faf-4ca7-97f7-8188383198bd",
+            "name": "department"
+        },
+        {
+            "type": "select",
+            "label": "保管期限",
+            "value": "",
+            "dictKey": "",
+            "disabled": false,
+            "multiple": false,
+            "placeholder": "请选择",
+            "rules": [],
+            "span": 12,
+            "key": "8ac2e145-4e4b-4bef-84af-8dbb5310f4b8",
+            "name": "retention"
+        },
+        {
+            "type": "date",
+            "value": null,
+            "disabled": false,
+            "rules": [
+                {
+                    "required": "true",
+                    "message": "此项为必填项"
+                }
+            ],
+            "placeholder": "请选择",
+            "span": 12,
+            "key": "5d2cf413-d166-4d96-b05c-95fcfc7011da",
+            "name": "created_date",
+            "label": "成文日期"
+        },
+        {
+            "type": "input",
+            "subtype": "text",
+            "label": "档号",
+            "disabled": false,
+            "readonly": false,
+            "value": "",
+            "placeholder": "请输入一些文本",
+            "rules": [
+                {
+                    "required": true,
+                    "message": "不能为空",
+                    "trigger": "blur"
+                },
+                {
+                    "min": 1,
+                    "max": 8,
+                    "type": "string",
+                    "message": "长度在1~8个字符",
+                    "trigger": "blur"
+                },
+                {
+                    "pattern": "^[\\w\\u4e00-\\u9fa5-_]+$",
+                    "message": "正则验证失败:^[\\w\\u4e00-\\u9fa5-_]+$",
+                    "trigger": "blur"
+                }
+            ],
+            "span": 12,
+            "key": "0e9b8c8f-d2a4-489e-95e2-3e17d1bef4a3",
+            "name": "archive_no"
+        },
+        {
+            "type": "date",
+            "value": null,
+            "disabled": false,
+            "rules": [
+                {
+                    "required": "true",
+                    "message": "此项为必填项"
+                }
+            ],
+            "placeholder": "请选择",
+            "span": 12,
+            "key": "65744ae8-338d-4432-957e-59785657b3ab",
+            "name": "arrive_date",
+            "label": "收文日期"
+        },
+        {
+            "type": "number",
+            "label": "文件年度",
+            "value": 16,
+            "decimal1": 2,
+            "min": 0,
+            "max": 99998,
+            "prepend": "￥",
+            "append": "元",
+            "span": 12,
+            "key": "f5180330-4daa-4226-b2ed-7cc71b3b9c12",
+            "name": "filing_year"
+        },
+        {
+            "type": "input",
+            "subtype": "text",
+            "label": "文件题名",
+            "disabled": false,
+            "readonly": false,
+            "value": "",
+            "placeholder": "请输入一些文本",
+            "rules": [
+                {
+                    "required": true,
+                    "message": "不能为空",
+                    "trigger": "blur"
+                },
+                {
+                    "min": 1,
+                    "max": 8,
+                    "type": "string",
+                    "message": "长度在1~8个字符",
+                    "trigger": "blur"
+                },
+                {
+                    "pattern": "^[\\w\\u4e00-\\u9fa5-_]+$",
+                    "message": "正则验证失败:^[\\w\\u4e00-\\u9fa5-_]+$",
+                    "trigger": "blur"
+                }
+            ],
+            "span": 12,
+            "key": "7b1bc9b8-7575-4d7d-8f30-df73a6657bdd",
+            "name": "maintitle"
+        }
+    ],
+    "col": false
 }

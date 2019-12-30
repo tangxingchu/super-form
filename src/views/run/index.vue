@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(style="text-align: left;")
     toolbar(@clickUpdateAction="updateForm" @clickInsertAction="insertForm" @clickDelAction="delForm")
     dynamic-form(:form-config="formConfig" v-model="hehe" ref="form-run")
 </template>
@@ -74,9 +74,11 @@ export default {
             nodeId: queryParams.nodeId,
           }).then(result => {
             if (result.data && result.data.length > 0) {
+              let formData = {};
               this.formConfig.formItemList.forEach(item => {
-                this.hehe[item.name] = result.data[0][item.name];
+                formData[item.name] = result.data[0][item.name];
               });              
+              this.hehe = {...formData};
             } else {
               this.$message({
                 message: '没有查询到数据',
